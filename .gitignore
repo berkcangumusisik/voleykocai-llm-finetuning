@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/
+
+# Ham scrape çıktısı: build_dataset.py'nin ara girdisi, scrape.py ile
+# yeniden üretilebilir. İşlenmiş data/train.jsonl commit'leniyor.
+data/raw/
+
+# Eğitilmiş ağırlıklar Hugging Face'te duruyor, repoda değil.
+*.pt
+*.safetensors
+
+# Token asla commit'lenmemeli.
+.env
