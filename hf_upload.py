@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
-"""Hugging Face yükleme yardımcıları.
+"""Shared confirm-and-upload logic used by the three upload.py scripts.
 
-Üç aşamanın upload.py'si de bunu kullanıyor; aynı onay ve hata mesajlarını üç
-kez yazmayayım diye ortak modüle aldım. Doğrudan çalıştırılmaz.
-
-Token buraya hiç yazılmıyor: `hf auth login` ile bir kez giriş yapıyorsun,
-huggingface_hub token'ı kendi saklama alanından okuyor.
+Not meant to be run directly. No token is stored here; huggingface_hub reads
+the one saved by `hf auth login`.
 """
 
 from __future__ import annotations
@@ -18,7 +15,9 @@ HF_USER = "berkcangumusisik"
 
 
 def _human(n_bytes: int) -> str:
-    return f"{n_bytes / 1024:.1f} KB" if n_bytes < 1024**2 else f"{n_bytes / 1024**2:.1f} MB"
+    if n_bytes < 1024 ** 2:
+        return f"{n_bytes / 1024:.1f} KB"
+    return f"{n_bytes / 1024 ** 2:.1f} MB"
 
 
 def _count_lines(path: str) -> int | None:
@@ -29,7 +28,6 @@ def _count_lines(path: str) -> int | None:
 
 
 def whoami() -> str:
-    """Giriş yapılmış mı? Yapılmışsa kullanıcı adını döndür."""
     from huggingface_hub import HfApi
     from huggingface_hub.errors import LocalTokenNotFoundError
 
@@ -52,9 +50,9 @@ def confirm_and_upload(
     files: list[tuple[str, str]],
     private: bool = False,
 ) -> None:
-    """Ne yükleneceğini göster, onay al, sonra yükle.
+    """Show what will be uploaded, ask for confirmation, then upload.
 
-    files: (yerel_yol, repodaki_yol) çiftleri.
+    files: (local_path, path_in_repo) pairs.
     """
     from huggingface_hub import HfApi
 
@@ -80,13 +78,11 @@ def confirm_and_upload(
           f"{'private' if private else 'public'})")
     print("Dosyalar        :")
     for local, remote in files:
-        size = _human(os.path.getsize(local))
         lines = _count_lines(local)
         extra = f", {lines} satır" if lines is not None else ""
-        print(f"  - {remote:<28} ({size}{extra})")
+        print(f"  - {remote:<28} ({_human(os.path.getsize(local))}{extra})")
 
-    answer = input("\nDevam? [e/h]: ").strip().lower()
-    if answer not in ("e", "evet", "y", "yes"):
+    if input("\nDevam? [e/h]: ").strip().lower() not in ("e", "evet", "y", "yes"):
         print("İptal edildi, hiçbir şey yüklenmedi.")
         sys.exit(0)
 

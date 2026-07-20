@@ -21,7 +21,7 @@ configs:
     path: train.jsonl
 ---
 
-# VoleykoçAI — Türkçe Voleybol Antrenörlüğü Veri Seti
+# VoleykoçAI: Türkçe Voleybol Antrenörlüğü Veri Seti
 
 Türkçe voleybol antrenörlüğü alanında soru-cevap veri seti. Teknik (manşet, parmak pas, smaç, servis, blok), taktik ve rotasyon sistemleri, antrenman planlaması, kondisyon, sakatlık önleme ve oyun kuralları konularını kapsıyor.
 
@@ -54,11 +54,11 @@ Bir yapay zekâ dersi ödevi kapsamında hazırlandı. Eğitilen model: [`berkca
 
 Üç kaynaktan derlendi:
 
-1. **Web scraping — Türkçe Wikipedia.** Voleybol, Plaj voleybolu, Oturarak voleybol, FIVB, CEV, TVF, millî takımlar, Sultanlar/Efeler Ligi ve büyük kulüplerin sayfaları. Her bölüm başlığı bir soruya, paragrafları cevaba dönüştürüldü.
-2. **Web scraping — Türkiye Voleybol Federasyonu.** `tvf.org.tr` haber sayfaları. (Federasyonun oyun kuralları kitapçığı sitede yalnızca PDF olarak yayımlandığı için haber akışı kullanıldı.)
-3. **Sentetik.** 20 adet elle yazılmış gerçek antrenörlük soru-cevabı tohum olarak alındı ve bir dil modeliyle çoğaltıldı.
+1. **Web scraping: Türkçe Wikipedia.** Voleybol, Plaj voleybolu, Oturarak voleybol, FIVB, CEV, TVF, millî takımlar, Sultanlar/Efeler Ligi ve büyük kulüplerin sayfaları. Her bölüm başlığı bir soruya, paragrafları cevaba dönüştürüldü.
+2. **Web scraping: Türkiye Voleybol Federasyonu.** `tvf.org.tr` haber sayfaları. (Federasyonun oyun kuralları kitapçığı sitede yalnızca PDF olarak yayımlandığı için haber akışı kullanıldı.)
+3. **Sentetik.** 20 adet elle yazılmış gerçek antrenörlük soru-cevabı seed olarak alındı ve bir dil modeliyle çoğaltıldı.
 
-Birleştirme sonrası normalize edilmiş soru üzerinden tekilleştirme, uzunluk filtresi ve sabit tohumla (`seed=1337`) karıştırma uygulandı.
+Birleştirme sonrası normalize edilmiş soru üzerinden tekilleştirme, uzunluk filtresi ve sabit rastgelelik değeriyle (`seed=1337`) karıştırma uygulandı.
 
 Üretim kodunun tamamı: [github.com/berkcangumusisik/voleykocai-llm-finetuning](https://github.com/berkcangumusisik/voleykocai-llm-finetuning)
 

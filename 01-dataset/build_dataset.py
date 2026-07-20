@@ -1,20 +1,14 @@
 #!/usr/bin/env python3
-"""VoleykoçAI -- ham metinleri ve sentetik örnekleri tek veri setinde birleştirir.
+"""Merges scraped text and synthetic examples into one dataset.
 
-Girdiler:
-  data/raw/*.json        scrape.py'nin çıktısı (Wikipedia + TVF)
-  data/synthetic.jsonl   augment.py'nin çıktısı (elle yazılmış tohumlardan)
+Inputs:  data/raw/*.json, data/synthetic.jsonl
+Outputs: data/train.jsonl, reports/dataset_stats.md
 
-Çıktı:
-  data/train.jsonl       Hugging Face'e yüklenecek veri seti
-  reports/dataset_stats.md
+The row schema follows the magibu layout used by
+alibayram/identity_finetune_magibu_q3:
 
-Şema, hocanın alibayram/identity_finetune_magibu_q3 veri setindeki düzeni
-izliyor. O depo erişim onayı istediği için şemayı aynı ekibin açık deposundan
-(magibu/turkish-multi-turn-dialog-dataset) aldım:
-
-  {"system": ..., "source": ..., "conversations": [{"role","content"}, ...],
-   "num_turns": 2}
+    {"system": ..., "source": ..., "conversations": [{"role", "content"}, ...],
+     "num_turns": 2}
 
 Run:
     python 01-dataset/build_dataset.py
@@ -37,7 +31,6 @@ STATS_PATH = os.path.join(ROOT, "reports", "dataset_stats.md")
 
 SEED = 1337
 
-# Her satırda aynı sistem mesajı duruyor: modele kim olduğunu söylüyor.
 SYSTEM = (
     "Sen VoleykoçAI'sın: Türkçe konuşan bir voleybol antrenörlük asistanısın. "
     "Teknik, taktik, antrenman planlaması, kondisyon ve oyun kuralları "
@@ -47,9 +40,6 @@ SYSTEM = (
 MIN_ANSWER_CHARS = 120
 MAX_ANSWER_CHARS = 1800
 
-# Wikipedia bölüm başlığından soru üretirken kullandığım kalıplar. Aynı başlık
-# her seferinde aynı kalıba düşmesin diye başlığın hash'iyle seçiyorum --
-# rastgele değil, yani script tekrar çalıştığında aynı sonucu veriyor.
 SECTION_TEMPLATES = [
     "{sayfa} konusunda {baslik} hakkında bilgi verir misin?",
     "Voleybolda {baslik} nedir?",
@@ -58,15 +48,14 @@ SECTION_TEMPLATES = [
     "{baslik} hakkında ne biliyorsun? ({sayfa} bağlamında)",
 ]
 
-# "Giriş" bölümü için ayrı kalıplar -- başlık anlamlı bir konu değil.
 INTRO_TEMPLATES = [
     "{sayfa} nedir?",
     "{sayfa} hakkında genel bilgi verir misin?",
     "Bana {sayfa} konusunu anlat.",
 ]
 
-# TVF haberlerinde başlığı soruya gömüyorum. Gömmezsem 10 haberin sorusu
-# 3 kalıba düşüp birbiriyle çakışıyor ve dedupe hepsini eliyor.
+# The article title goes into the question; without it 10 news items would
+# collapse onto 3 templates and dedup would drop most of them.
 TVF_TEMPLATES = [
     "Türk voleybolundan bir haber: \"{konu}\". Bunu özetler misin?",
     "\"{konu}\" konusunda TVF ne açıkladı?",
@@ -74,18 +63,14 @@ TVF_TEMPLATES = [
 ]
 
 
-# ---- yardımcılar -----------------------------------------------------------
-
 def normalize(text: str) -> str:
-    """Dedupe için: küçük harf, noktalama yok, tek boşluk."""
     tr = str.maketrans("çğıöşüÇĞİÖŞÜ", "cgiosucgiosu")
-    text = text.translate(tr).lower()
-    text = re.sub(r"[^\w\s]", " ", text)
+    text = re.sub(r"[^\w\s]", " ", text.translate(tr).lower())
     return re.sub(r"\s+", " ", text).strip()
 
 
 def pick(templates: list[str], key: str) -> str:
-    """Anahtara göre deterministik kalıp seçimi (rastgele değil)."""
+    """Deterministic template choice, so re-runs produce the same output."""
     return templates[sum(ord(c) for c in key) % len(templates)]
 
 
@@ -102,11 +87,7 @@ def make_row(soru: str, cevap: str, source: str) -> dict:
 
 
 def chunk(paragraphs: list[str]) -> list[str]:
-    """Paragrafları MAX_ANSWER_CHARS'ı aşmayan parçalara böl.
-
-    Uzun bir bölümü tek cevaba sıkıştırıp gerisini atmak yerine birden fazla
-    cevaba bölüyorum -- hem veri kaybı olmuyor hem örnek sayısı artıyor.
-    """
+    """Split a section into pieces under MAX_ANSWER_CHARS instead of truncating."""
     chunks: list[str] = []
     current: list[str] = []
     total = 0
@@ -122,16 +103,13 @@ def chunk(paragraphs: list[str]) -> list[str]:
 
 
 def slug_to_title(slug: str) -> str:
-    """'filenin-efeleri-vnlde-ceyrek-finalde' -> 'Filenin efeleri vnlde ceyrek finalde'"""
     words = slug.replace("-", " ").strip()
     return words[:1].upper() + words[1:] if words else slug
 
 
-# ---- kaynak 1: scrape edilmiş metin ---------------------------------------
-
 def rows_from_raw() -> list[dict]:
     if not os.path.isdir(RAW_DIR):
-        print(f"! {os.path.relpath(RAW_DIR, ROOT)} yok -- önce scrape.py çalıştır")
+        print(f"! {os.path.relpath(RAW_DIR, ROOT)} yok, önce scrape.py çalıştır")
         return []
 
     rows: list[dict] = []
@@ -151,13 +129,9 @@ def rows_from_raw() -> list[dict]:
                 if len(cevap) < MIN_ANSWER_CHARS:
                     continue
 
-                # Aynı bölümün ikinci, üçüncü parçası için soruyu kaydırıyorum
-                # ki dedupe onları aynı soru sanıp elemesin.
                 key = f"{baslik}{idx}"
                 if kaynak == "tvf":
-                    soru = pick(TVF_TEMPLATES, key).format(
-                        konu=slug_to_title(sayfa)
-                    )
+                    soru = pick(TVF_TEMPLATES, key).format(konu=slug_to_title(sayfa))
                 elif baslik.strip().lower() in ("giriş", "genel"):
                     soru = pick(INTRO_TEMPLATES, key).format(sayfa=sayfa)
                 else:
@@ -172,29 +146,23 @@ def rows_from_raw() -> list[dict]:
     return rows
 
 
-# ---- kaynak 2: sentetik ----------------------------------------------------
-
 def rows_from_synthetic() -> list[dict]:
     if not os.path.exists(SYNTHETIC_PATH):
-        print(f"! {os.path.relpath(SYNTHETIC_PATH, ROOT)} yok -- "
+        print(f"! {os.path.relpath(SYNTHETIC_PATH, ROOT)} yok, "
               f"önce augment.py çalıştır")
         return []
 
     rows = []
     with open(SYNTHETIC_PATH, encoding="utf-8") as fh:
         for line in fh:
-            line = line.strip()
-            if not line:
+            if not line.strip():
                 continue
             item = json.loads(line)
             rows.append(make_row(item["soru"], item["cevap"], "synthetic"))
     return rows
 
 
-# ---- doğrulama -------------------------------------------------------------
-
 def validate(rows: list[dict]) -> list[str]:
-    """Her satır şemaya uyuyor mu? Uymayanların açıklamasını döndür."""
     problems = []
     for i, row in enumerate(rows):
         if set(row) != {"system", "source", "conversations", "num_turns"}:
@@ -204,17 +172,14 @@ def validate(rows: list[dict]) -> list[str]:
         if len(convs) != row["num_turns"]:
             problems.append(f"satır {i}: num_turns {row['num_turns']} ama "
                             f"{len(convs)} mesaj var")
-        expected = ["user", "assistant"]
         roles = [c["role"] for c in convs]
-        if roles != expected:
-            problems.append(f"satır {i}: rol sırası {roles}, beklenen {expected}")
+        if roles != ["user", "assistant"]:
+            problems.append(f"satır {i}: rol sırası {roles}")
         for c in convs:
             if not c.get("content", "").strip():
                 problems.append(f"satır {i}: boş içerik ({c['role']})")
     return problems
 
-
-# ---- rapor -----------------------------------------------------------------
 
 def write_stats(rows: list[dict], before_dedupe: int) -> None:
     sources = Counter(r["source"] for r in rows)
@@ -243,12 +208,11 @@ def write_stats(rows: list[dict], before_dedupe: int) -> None:
     L.append("## Benzersizlik")
     L.append("")
     L.append(f"Sorular dedupe edildi, hepsi benzersiz. Benzersiz **cevap** sayısı: "
-             f"{uniq_answers} / {len(rows)} "
-             f"({uniq_answers / len(rows) * 100:.1f}%).")
+             f"{uniq_answers} / {len(rows)} ({uniq_answers / len(rows) * 100:.1f}%).")
     if uniq_answers < len(rows) * 0.9:
         L.append("")
-        L.append("> Cevap tekrarı yüksek. Sebebi büyük ihtimalle `augment.py`'nin "
-                 "çevrimdışı modu: orada cevap tohumdan aynen kopyalanıyor. "
+        L.append("> Cevap tekrarı yüksek. Sebebi `augment.py`'nin çevrimdışı modu: "
+                 "orada cevap seed örnekten aynen kopyalanıyor. "
                  "`ANTHROPIC_API_KEY` verip model moduyla yeniden üretirsen bu oran "
                  "yükselir.")
     L.append("")
@@ -257,8 +221,6 @@ def write_stats(rows: list[dict], before_dedupe: int) -> None:
     with open(STATS_PATH, "w", encoding="utf-8") as fh:
         fh.write("\n".join(L))
 
-
-# ---- sürücü ----------------------------------------------------------------
 
 def main() -> None:
     raw_rows = rows_from_raw()
@@ -272,7 +234,6 @@ def main() -> None:
 
     before = len(rows)
 
-    # Soruya göre dedupe: aynı soru iki kez veri setine girmesin.
     seen: set[str] = set()
     deduped = []
     for row in rows:

@@ -12,7 +12,7 @@ tags:
 - turkish
 ---
 
-# VoleykoçAI — Türkçe Voleybol BPE Tokenizer
+# VoleykoçAI: Türkçe Voleybol BPE Tokenizer
 
 Türkçe voleybol metinleri üzerinde sıfırdan eğitilmiş byte-level BPE tokenizer. Bir yapay zekâ dersi ödevi kapsamında hazırlandı.
 
@@ -21,7 +21,7 @@ Türkçe voleybol metinleri üzerinde sıfırdan eğitilmiş byte-level BPE toke
 | Algoritma | Byte-level BPE (`tokenizers` kütüphanesi) |
 | Sözlük boyutu | 7.532 |
 | Özel tokenlar | `<\|endoftext\|>`, `<\|im_start\|>`, `<\|im_end\|>`, `<pad>` |
-| `<unk>` | Yok — byte fallback |
+| `<unk>` | Yok: byte fallback |
 | Sohbet şablonu | ChatML (Qwen uyumlu) |
 
 ## Kullanım
@@ -71,7 +71,7 @@ Bu alanda **%36 daha az** token. Sözlük tamamen Türkçe voleybol metninden ö
 
 ## Önemli not
 
-Bu tokenizer **bağımsız bir teslim**. [`berkcangumusisik/voleykoc-qwen3-4b-lora`](https://huggingface.co/berkcangumusisik/voleykoc-qwen3-4b-lora) adaptörü bunu **kullanmıyor** — o, temel modelin kendi tokenizer'ıyla eğitildi. Bir modelin sözlüğünü değiştirmek embedding katmanının yeniden boyutlandırılmasını ve baştan eğitimi gerektirir; ödev bunu istemiyordu.
+Bu tokenizer **bağımsız bir teslim**. [`berkcangumusisik/voleykoc-qwen3-4b-lora`](https://huggingface.co/berkcangumusisik/voleykoc-qwen3-4b-lora) adaptörü bunu **kullanmıyor**: o, temel modelin kendi tokenizer'ıyla eğitildi. Bir modelin sözlüğünü değiştirmek embedding katmanının yeniden boyutlandırılmasını ve baştan eğitimi gerektirir; ödev bunu istemiyordu.
 
 ## Eğitim kodu
 

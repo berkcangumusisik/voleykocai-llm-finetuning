@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
-"""VoleykoçAI -- kimlik eğitimi veri setini üretir (EK ÖDEV).
+"""Builds the identity fine-tuning dataset (bonus assignment).
 
-Bu, birinci/ikinci/üçüncü ödevden bağımsız ayrı bir süreç. Amaç modele
-adını, yaratıcısını ve görevini öğretmek.
+Expands identity_seeds.jsonl into turkish/english splits, mirroring the layout
+of alibayram/identity_finetune_magibu_q3. Row schema matches the main dataset.
 
-Hocanın alibayram/identity_finetune_magibu_q3 veri seti "turkish" ve "english"
-diye iki bölüme ayrılmış; ben de aynı yapıyı kuruyorum. Satır şeması ana ödevle
-aynı magibu düzeni: {system, source, conversations, num_turns}.
-
-Kimlik verisinde aynı cevabın birçok farklı soruya bağlanması normaldir --
-"adın ne", "kimsin", "kendini tanıt" hepsi aynı gerçeğe çıkar. Model bu
-tekrardan kimliğini öğrenir. Bu yüzden burada şablonla çoğaltma, ana ödevdeki
-sentetik veriden farklı olarak, yöntemin kendisi.
+Binding one answer to many phrasings is intentional here: the model learns its
+identity from that repetition.
 
 Run:
     python 04-identity/build_identity.py
@@ -42,7 +36,6 @@ SYSTEM_EN = (
     "developed by Berkcan Gümüşışık."
 )
 
-# Soruyu yeniden çerçeveleyen kalıplar. "{s}" tohumun sorusu.
 PREFIXES_TR = [
     "{s}",
     "Merhaba! {s}",
@@ -67,8 +60,7 @@ def load_seeds() -> list[dict]:
     seeds = []
     with open(SEEDS_PATH, encoding="utf-8") as fh:
         for line in fh:
-            line = line.strip()
-            if line:
+            if line.strip():
                 seeds.append(json.loads(line))
     return seeds
 
@@ -119,8 +111,7 @@ def validate(rows: list[dict]) -> list[str]:
 
 def write_stats(splits: dict[str, list[dict]]) -> None:
     L = ["# Kimlik veri seti istatistikleri (ek ödev)", ""]
-    toplam = sum(len(v) for v in splits.values())
-    L.append(f"Toplam örnek: **{toplam}**")
+    L.append(f"Toplam örnek: **{sum(len(v) for v in splits.values())}**")
     L.append("")
     L.append("| Bölüm | Örnek |")
     L.append("|---|---:|")
@@ -159,8 +150,7 @@ def main() -> None:
 
     seeds = load_seeds()
     n_tr = sum(1 for s in seeds if s["dil"] == "tr")
-    n_en = len(seeds) - n_tr
-    print(f"{len(seeds)} tohum okundu ({n_tr} Türkçe, {n_en} İngilizce)")
+    print(f"{len(seeds)} seed okundu ({n_tr} Türkçe, {len(seeds) - n_tr} İngilizce)")
 
     splits = {"turkish": expand(seeds, "tr"), "english": expand(seeds, "en")}
 

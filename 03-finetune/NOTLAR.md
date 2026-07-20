@@ -1,4 +1,4 @@
-# 03-finetune — notlar
+# 03-finetune: notlar
 
 Ödev 3: Unsloth ile LoRA fine-tune.
 
@@ -13,7 +13,7 @@ Unsloth Triton'a dayanıyor, Triton macOS'ta yok. Bu depo Apple Silicon üzerind
 3. Soldaki 🔑 **Secrets** panelinden `HF_TOKEN` ekle (Write yetkili), **Notebook access** anahtarını aç
 4. Hücreleri sırayla çalıştır
 
-**Ön koşul:** veri seti HF'de yayımlanmış olmalı — notebook onu Hub'dan çekiyor. Yani önce `01-dataset/upload.py`.
+**Ön koşul:** veri seti HF'de yayımlanmış olmalı: notebook onu Hub'dan çekiyor. Yani önce `01-dataset/upload.py`.
 
 ## Reçete
 

@@ -1,22 +1,16 @@
 #!/usr/bin/env python3
-"""VoleykoçAI -- elle yazdığım seed örnekleri çoğaltır.
+"""Expands the hand-written seed examples in seeds.jsonl.
 
-Ödevin "sentetik veri kullanılacaksa en az 10-20 örnek elle yazılmalı, ardından
-bir model yardımıyla çoğaltılmalıdır" maddesi için. seeds.jsonl'daki 20 örneği
-okuyup her birinden birkaç varyasyon üretiyorum.
-
-İki mod var:
-  1) MODEL MODU (varsayılan, ANTHROPIC_API_KEY varsa)
-     Claude'a seed örneği verip aynı bilgiyi farklı soran/anlatan varyasyonlar
-     istiyorum. Kaliteli ve gerçekten çeşitli çıktı bunda.
-  2) ÇEVRİMDIŞI MOD (--offline, ya da API anahtarı yoksa)
-     Soruyu şablonlarla yeniden yazıyorum. API'siz de repo çalışsın diye
-     koydum; çeşitliliği daha düşük, dedupe adımı zaten tekrarları eliyor.
+Two modes:
+  model    (default when ANTHROPIC_API_KEY is set) asks a model for genuinely
+           new question/answer pairs
+  offline  (--offline, or no API key) rewrites the question from templates and
+           reuses the seed answer
 
 Run:
-    python 01-dataset/augment.py              # API varsa model modu
-    python 01-dataset/augment.py --offline    # zorla çevrimdışı
-    python 01-dataset/augment.py --per-seed 8 # seed başına varyasyon sayısı
+    python 01-dataset/augment.py
+    python 01-dataset/augment.py --offline
+    python 01-dataset/augment.py --per-seed 25
 """
 
 from __future__ import annotations
@@ -32,12 +26,9 @@ OUT_PATH = os.path.join(ROOT, "data", "synthetic.jsonl")
 
 MODEL = "claude-opus-4-8"
 DEFAULT_PER_SEED = 6
-# Çevrimdışı modda cevap seed örneğinden aynen kopyalanıyor, yani aynı cevap birden
-# fazla soruya bağlanıyor. Bunu abartmamak için çevrimdışı varsayılanı düşük
-# tutuyorum; gerçek çeşitlilik model modundan geliyor.
+# Offline mode copies the seed answer verbatim, so keep its default low.
 OFFLINE_PER_SEED = 3
 
-# Modelin döndüreceği yapı. Şemayı zorlayınca ayrıştırma derdi kalmıyor.
 VARIATION_SCHEMA = {
     "type": "object",
     "properties": {
@@ -71,18 +62,26 @@ Kurallar:
 - Cevaplar 2-5 cümle, akıcı Türkçe, madde işareti kullanma.
 - Orijinal çiftin kendisini tekrar etme, yeni olsun."""
 
+QUESTION_TEMPLATES = [
+    "Antrenörüm bana {s} diye sormamı söyledi, ne cevap vermeliyim?",
+    "Yeni başlayan bir oyuncuya anlatır gibi: {s}",
+    "{s} Bu konuda en sık yapılan hata ne?",
+    "Altyapı grubumla çalışırken {s}",
+    "Kısaca özetler misin: {s}",
+    "Lig seviyesinde oynayan biri için {s}",
+    "{s} Bunu antrenmanda nasıl çalıştırırım?",
+    "Maç öncesi hazırlık açısından {s}",
+]
+
 
 def load_seeds() -> list[dict]:
     seeds = []
     with open(SEEDS_PATH, encoding="utf-8") as fh:
         for line in fh:
-            line = line.strip()
-            if line:
+            if line.strip():
                 seeds.append(json.loads(line))
     return seeds
 
-
-# ---- 1) model modu ---------------------------------------------------------
 
 def augment_with_model(seeds: list[dict], per_seed: int) -> list[dict]:
     import anthropic
@@ -133,27 +132,11 @@ def augment_with_model(seeds: list[dict], per_seed: int) -> list[dict]:
     return out
 
 
-# ---- 2) çevrimdışı mod -----------------------------------------------------
-
-# Soruyu yeniden çerçeveleyen kalıplar. "{s}" seedun sorusu (baş harfi küçük).
-QUESTION_TEMPLATES = [
-    "Antrenörüm bana {s} diye sormamı söyledi, ne cevap vermeliyim?",
-    "Yeni başlayan bir oyuncuya anlatır gibi: {s}",
-    "{s} Bu konuda en sık yapılan hata ne?",
-    "Altyapı grubumla çalışırken {s}",
-    "Kısaca özetler misin: {s}",
-    "Lig seviyesinde oynayan biri için {s}",
-    "{s} Bunu antrenmanda nasıl çalıştırırım?",
-    "Maç öncesi hazırlık açısından {s}",
-]
-
-
 def lower_first(text: str) -> str:
-    """Türkçe'ye uygun küçültme: I -> ı, İ -> i."""
+    """Turkish-aware lowercasing of the first letter: I -> ı, İ -> i."""
     if not text:
         return text
-    first = text[0]
-    first = {"I": "ı", "İ": "i"}.get(first, first.lower())
+    first = {"I": "ı", "İ": "i"}.get(text[0], text[0].lower())
     return first + text[1:]
 
 
@@ -170,15 +153,13 @@ def augment_offline(seeds: list[dict], per_seed: int) -> list[dict]:
     return out
 
 
-# ---- sürücü ----------------------------------------------------------------
-
 def main() -> None:
     ap = argparse.ArgumentParser(description="seed örnekleri çoğalt")
     ap.add_argument("--offline", action="store_true",
                     help="API kullanma, şablonlu yerel varyasyon üret")
     ap.add_argument("--per-seed", type=int, default=None,
                     help=f"seed başına varyasyon "
-                         f"(model modu {DEFAULT_PER_SEED}, çevrimdışı {OFFLINE_PER_SEED})")
+                         f"(model {DEFAULT_PER_SEED}, çevrimdışı {OFFLINE_PER_SEED})")
     args = ap.parse_args()
 
     if not os.path.exists(SEEDS_PATH):
@@ -206,17 +187,17 @@ def main() -> None:
         print("(Model moduna geçmek için: export ANTHROPIC_API_KEY=...)\n")
         rows = augment_offline(seeds, n_offline)
 
-    if rows and rows is not None and not use_model:
-        print("\nUYARI: çevrimdışı modda cevaplar tohumdan aynen kopyalanıyor,")
-        print("yani aynı cevap birden fazla soruya bağlı. Gerçek çeşitlilik için")
-        print("bir API anahtarıyla model modunda tekrar çalıştır.")
-
     os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as fh:
         for row in rows:
             fh.write(json.dumps(row, ensure_ascii=False) + "\n")
 
-    print(f"\n{len(rows)} sentetik örnek yazıldı -> "
+    if not use_model:
+        print("UYARI: çevrimdışı modda cevaplar seed örnekten aynen kopyalanıyor,")
+        print("yani aynı cevap birden fazla soruya bağlı. Gerçek çeşitlilik için")
+        print("bir API anahtarıyla model modunda tekrar çalıştır.\n")
+
+    print(f"{len(rows)} sentetik örnek yazıldı -> "
           f"{os.path.relpath(OUT_PATH, ROOT)}")
 
 

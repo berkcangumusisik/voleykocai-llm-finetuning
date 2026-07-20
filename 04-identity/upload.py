@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Ek ödev kimlik veri setini Hugging Face'e yükler.
+"""Uploads the bonus identity dataset to Hugging Face.
 
-İki bölüm yükleniyor: turkish ve english. Hocanın
-alibayram/identity_finetune_magibu_q3 veri setindeki bölümleme aynen korunuyor.
+Two splits are uploaded, turkish and english, matching the layout of
+alibayram/identity_finetune_magibu_q3.
 
 Run:
     python 04-identity/upload.py

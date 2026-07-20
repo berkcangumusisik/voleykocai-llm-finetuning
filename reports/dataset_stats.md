@@ -21,4 +21,4 @@ Toplam örnek: **166** (dedupe öncesi 172, elenen 6)
 
 Sorular dedupe edildi, hepsi benzersiz. Benzersiz **cevap** sayısı: 125 / 166 (75.3%).
 
-> Cevap tekrarı yüksek. Sebebi büyük ihtimalle `augment.py`'nin çevrimdışı modu: orada cevap tohumdan aynen kopyalanıyor. `ANTHROPIC_API_KEY` verip model moduyla yeniden üretirsen bu oran yükselir.
+> Cevap tekrarı yüksek. Sebebi `augment.py`'nin çevrimdışı modu: orada cevap seed örnekten aynen kopyalanıyor. `ANTHROPIC_API_KEY` verip model moduyla yeniden üretirsen bu oran yükselir.

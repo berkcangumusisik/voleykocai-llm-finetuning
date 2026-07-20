@@ -22,11 +22,11 @@ configs:
     path: english.jsonl
 ---
 
-# VoleykoçAI — Kimlik Eğitimi Veri Seti
+# VoleykoçAI: Kimlik Eğitimi Veri Seti
 
 Bir dil modeline **kim olduğunu** öğretmek için hazırlanmış veri seti: adı, yaratıcısı, görevi, yetenekleri ve sınırları. Yapay zekâ dersinin ek ödevi kapsamında hazırlandı.
 
-Yapı, [`alibayram/identity_finetune_magibu_q3`](https://huggingface.co/datasets/alibayram/identity_finetune_magibu_q3) veri seti referans alınarak kuruldu — aynı `turkish` / `english` bölümlemesi ve aynı satır şeması.
+Yapı, [`alibayram/identity_finetune_magibu_q3`](https://huggingface.co/datasets/alibayram/identity_finetune_magibu_q3) veri seti referans alınarak kuruldu: aynı `turkish` / `english` bölümlemesi ve aynı satır şeması.
 
 Eğitilen model: [`berkcangumusisik/voleykoc-identity-lora`](https://huggingface.co/berkcangumusisik/voleykoc-identity-lora).
 
@@ -70,7 +70,7 @@ Eğitilen model: [`berkcangumusisik/voleykoc-identity-lora`](https://huggingface
 
 Kimlik verisinde aynı cevabın birden çok soru biçimine bağlanması **kasıtlıdır**: "adın ne", "kimsin", "kendini tanıt" hepsi aynı gerçeğe çıkar ve model kimliğini bu tekrardan öğrenir.
 
-`sinir` kategorisi bilinçli olarak dahil edildi — bir kimlik yalnızca modelin ne olduğu değil, ne *olmadığı* ile de tanımlanır. Bu kategorideki örnekler modele sağlık teşhisi koymamayı ve alan dışı sorularda kullanıcıyı doğru yere yönlendirmeyi öğretir.
+`sinir` kategorisi bilinçli olarak dahil edildi: bir kimlik yalnızca modelin ne olduğu değil, ne *olmadığı* ile de tanımlanır. Bu kategorideki örnekler modele sağlık teşhisi koymamayı ve alan dışı sorularda kullanıcıyı doğru yere yönlendirmeyi öğretir.
 
 Üretim kodu: [github.com/berkcangumusisik/voleykocai-llm-finetuning](https://github.com/berkcangumusisik/voleykocai-llm-finetuning) → `04-identity/`
 

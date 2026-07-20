@@ -1,4 +1,4 @@
-# Hugging Face'e yükleme — adım adım
+# Hugging Face'e yükleme: adım adım
 
 Bu dosyayı ödevi teslim ettikten aylar sonra açtığımda adımları hatırlamak zorunda kalmayayım diye yazdım.
 
@@ -16,7 +16,7 @@ Beş repo yayımlanacak:
 
 ---
 
-## Adım 0 — Token oluştur (tarayıcıda, bir kez)
+## Adım 0: Token oluştur (tarayıcıda, bir kez)
 
 1. https://huggingface.co/settings/tokens adresine git
 2. **Create new token** → sekme: **Write**
@@ -26,7 +26,7 @@ Beş repo yayımlanacak:
 
 ---
 
-## Adım 1 — Giriş yap (terminalde, bir kez)
+## Adım 1: Giriş yap (terminalde, bir kez)
 
 ```bash
 cd ~/Documents/GitHub/voleykocai-llm-finetuning
@@ -43,7 +43,7 @@ Token'ı depoya, notebook'a veya herhangi bir dosyaya yazma. `huggingface_hub` o
 
 ---
 
-## Adım 2 — Dosyaları üret
+## Adım 2: Dosyaları üret
 
 Yükleyecek bir şey olması için önce üretim adımlarını çalıştır:
 
@@ -57,7 +57,7 @@ python 04-identity/build_identity.py  # -> data/identity/*.jsonl
 
 ---
 
-## Adım 3 — Yükle
+## Adım 3: Yükle
 
 ```bash
 python 01-dataset/upload.py
@@ -78,11 +78,11 @@ Devam? [e/h]:
 
 `h` yazarsan hiçbir şey yüklenmez. Repo yoksa otomatik oluşturulur (public), varsa üzerine yazılır.
 
-Ayrıca giriş yaptığın hesap `berkcangumusisik` değilse script durur — yanlış hesaba yüklemeyi önlemek için.
+Ayrıca giriş yaptığın hesap `berkcangumusisik` değilse script durur: yanlış hesaba yüklemeyi önlemek için.
 
 ---
 
-## Adım 4 — LoRA adaptörlerini Colab'dan yükle
+## Adım 4: LoRA adaptörlerini Colab'dan yükle
 
 Adaptörler GPU gerektirdiği için lokalde üretilmiyor; push işlemi notebook'un içinden yapılıyor.
 
@@ -91,7 +91,7 @@ Adaptörler GPU gerektirdiği için lokalde üretilmiyor; push işlemi notebook'
 3. Soldaki 🔑 **Secrets** panelinden `HF_TOKEN` adıyla token'ı ekle, **Notebook access** anahtarını aç
 4. Hücreleri sırayla çalıştır
 
-Notebook token'ı şöyle okur — düz metin yazmaz:
+Notebook token'ı şöyle okur: düz metin yazmaz:
 
 ```python
 from google.colab import userdata
@@ -100,11 +100,11 @@ model.push_to_hub("berkcangumusisik/voleykoc-qwen3-4b-lora", token=userdata.get(
 
 Ek ödev için aynısını `04-identity/finetune_identity.ipynb` ile tekrarla.
 
-**Token'ı hücreye düz metin yazma** — notebook GitHub'a commit'lenecek, token da onunla birlikte sızar.
+**Token'ı hücreye düz metin yazma**: notebook GitHub'a commit'lenecek, token da onunla birlikte sızar.
 
 ---
 
-## Adım 5 — Doğrula
+## Adım 5: Doğrula
 
 Beş linki tarayıcıda aç:
 
@@ -112,7 +112,7 @@ Beş linki tarayıcıda aç:
 - **Tokenizer reposunda** `tokenizer.json` ve `tokenizer_config.json` var mı?
 - **LoRA repolarında** `adapter_model.safetensors` ve `adapter_config.json` var mı? Model kartında `base_model` görünüyor mu?
 
-Son kontrol — hiçbir şey lokalden okunmadan çalışmalı:
+Son kontrol: hiçbir şey lokalden okunmadan çalışmalı:
 
 ```bash
 python -c "from datasets import load_dataset; print(load_dataset('berkcangumusisik/voleykoc-antrenorluk-tr'))"

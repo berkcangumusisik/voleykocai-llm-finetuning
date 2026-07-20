@@ -1,19 +1,8 @@
 #!/usr/bin/env python3
-"""VoleykoçAI -- ham voleybol metinlerini web'den toplar.
+"""Scrapes raw Turkish volleyball text from Wikipedia and the TVF website.
 
-Ödevin "web scraping ek puan kazandırır" maddesi için yazdım. Türkçe
-Wikipedia'nın voleybol sayfalarını ve Türkiye Voleybol Federasyonu'nun açık
-sayfalarını geziyorum, her sayfayı başlık/paragraf bölümlerine ayırıp
-data/raw/ altına JSON olarak yazıyorum. build_dataset.py bu JSON'ları
-soru-cevap çiftlerine çeviriyor.
-
-İki kaynağın robots.txt'ini de çalıştırmadan önce kontrol ettim:
-  - tr.wikipedia.org : "User-agent: *" bloğu yalnızca /w/ ve /wiki/Special:
-                       yollarını kapatıyor, normal makale sayfaları serbest.
-  - tvf.org.tr       : "User-agent: * / Allow: /" -- tamamen serbest.
-Yine de check_robots() ile her çalıştırmada tekrar doğruluyorum; kural
-değişmişse o kaynağı atlıyorum. İstekler arasında REQUEST_DELAY saniye
-bekliyorum, sunucuyu yormamak için.
+Writes one JSON file per page into data/raw/. build_dataset.py turns those
+into question/answer pairs.
 
 Run:
     python 01-dataset/scrape.py
@@ -23,6 +12,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import time
 import urllib.robotparser
@@ -34,33 +24,27 @@ from bs4 import BeautifulSoup
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW_DIR = os.path.join(ROOT, "data", "raw")
 
-# Kendimi tanıtıyorum: kim olduğu belli olmayan bir bot olmak istemiyorum.
 USER_AGENT = (
     "VoleykocAI-Odev/1.0 (ders odevi veri toplama; "
     "https://github.com/berkcangumusisik/voleykocai-llm-finetuning)"
 )
-REQUEST_DELAY = 1.0  # saniye, istekler arası
+REQUEST_DELAY = 1.0
 
-# Türkçe Wikipedia sayfaları. Hepsinin var olduğunu MediaWiki API'siyle tek tek
-# doğruladım (Smaç, Servis (voleybol), Manşet gibi umduğum başlıklar TR
-# Wikipedia'da yok -- teknik terimler ana Voleybol makalesinin içinde geçiyor).
+# Every title verified against the MediaWiki API. Smac, Manset and Servis are
+# not separate pages on Turkish Wikipedia; those terms live inside Voleybol.
 WIKIPEDIA_PAGES = [
-    # oyunun kendisi: kurallar, pozisyonlar, teknik, taktik
     "Voleybol",
     "Plaj voleybolu",
     "Oturarak voleybol",
-    # kurumlar
     "Uluslararası Voleybol Federasyonu",
     "Avrupa Voleybol Konfederasyonu",
     "Türkiye Voleybol Federasyonu",
-    # millî takımlar ve ligler
     "Türkiye kadın millî voleybol takımı",
     "Türkiye erkek millî voleybol takımı",
     "Sultanlar Ligi",
     "Efeler Ligi",
     "Kadınlar 1. Ligi (voleybol)",
     "1. Lig (voleybol)",
-    # kulüpler: taktik/kadro anlatımları buradan geliyor
     "Fenerbahçe (kadın voleybol takımı)",
     "Eczacıbaşı (kadın voleybol takımı)",
     "Galatasaray (kadın voleybol takımı)",
@@ -69,38 +53,29 @@ WIKIPEDIA_PAGES = [
     "Arkas (erkek voleybol takımı)",
 ]
 
-# TVF'nin oyun kuralları kitapçığı sitede yalnızca PDF olarak duruyor, HTML
-# sayfası yok. Bu yüzden federasyonun haber akışını geziyorum: önce aşağıdaki
-# indeks sayfalarından /icerik/... linklerini topluyorum, sonra tek tek haber
-# sayfalarına giriyorum. Asıl Türkçe voleybol metni orada.
+# TVF publishes its rulebook as PDF only, so the news feed is used instead.
 TVF_INDEX_PAGES = [
     "https://tvf.org.tr/",
     "https://tvf.org.tr/icerikler/haberler",
 ]
-TVF_MAX_ARTICLES = 40  # nazik olmak için üst sınır (40 istek x 1 sn ≈ 40 sn)
+TVF_MAX_ARTICLES = 40
 
-# Wikipedia'da işimize yaramayan, sadece link listesi içeren bölümler.
 SKIP_SECTIONS = {
     "kaynakça", "kaynaklar", "ayrıca bakınız", "dış bağlantılar",
     "notlar", "referanslar", "galeri", "kaynakca",
 }
 
-MIN_PARAGRAPH_CHARS = 80  # bundan kısa paragraflar cevap olamayacak kadar cılız
-
-
-# ---- robots.txt ------------------------------------------------------------
+MIN_PARAGRAPH_CHARS = 80
 
 _robots_cache: dict[str, urllib.robotparser.RobotFileParser | None] = {}
 
 
 def _load_robots(scheme: str, host: str):
-    """Bir host'un robots.txt'ini bir kez indir ve ayrıştır.
+    """Fetch and parse a host's robots.txt once.
 
-    RobotFileParser.read() kendi başına indirseydi urllib'in varsayılan
-    User-Agent'ını kullanırdı; Wikimedia bunu 403 ile geri çeviriyor ve
-    kütüphane 403'ü "her şey yasak" diye yorumlayıp tüm sayfaları eliyor.
-    Bu yüzden robots.txt'i kendi User-Agent'ımla requests ile çekip
-    parser'a parse() ile veriyorum.
+    RobotFileParser.read() would download with urllib's default User-Agent,
+    which Wikimedia rejects with 403; the library reads that as "disallow
+    everything". So the file is fetched with requests instead.
     """
     key = f"{scheme}://{host}"
     if key in _robots_cache:
@@ -112,7 +87,6 @@ def _load_robots(scheme: str, host: str):
             f"{key}/robots.txt", headers={"User-Agent": USER_AGENT}, timeout=20
         )
         if resp.status_code >= 400:
-            # robots.txt yoksa (404) kural yok demektir, çekmek serbest.
             parser.parse([])
         else:
             resp.encoding = resp.apparent_encoding or "utf-8"
@@ -127,18 +101,14 @@ def _load_robots(scheme: str, host: str):
 
 
 def check_robots(url: str) -> bool:
-    """Bu URL'i USER_AGENT ile çekmeye izin var mı?"""
     parts = urlparse(url)
     parser = _load_robots(parts.scheme, parts.netloc)
-    if parser is None:  # robots.txt'e ulaşamadıysam çekmiyorum
+    if parser is None:
         return False
     return parser.can_fetch(USER_AGENT, url)
 
 
-# ---- indirme ---------------------------------------------------------------
-
 def fetch(url: str) -> str | None:
-    """Sayfayı indir. Hata olursa None dön -- tek sayfa yüzünden durmuyoruz."""
     try:
         resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=20)
         resp.raise_for_status()
@@ -149,53 +119,36 @@ def fetch(url: str) -> str | None:
     return resp.text
 
 
-# ---- ayrıştırma ------------------------------------------------------------
-
 def slugify(title: str) -> str:
-    """'Kadınlar 1. Ligi (voleybol)' -> 'kadinlar-1-ligi-voleybol' (dosya adı)."""
-    import re
-
     tr = str.maketrans("çğıöşüÇĞİÖŞÜ", "cgiosucgiosu")
-    slug = title.lower().translate(tr)
-    slug = re.sub(r"[^a-z0-9]+", "-", slug)
+    slug = re.sub(r"[^a-z0-9]+", "-", title.lower().translate(tr))
     return slug.strip("-")
 
 
 def clean(text: str) -> str:
-    """Wikipedia'nın [1] [kaynak belirtilmeli] gibi işaretlerini temizle."""
-    import re
-
-    text = re.sub(r"\[\d+\]", "", text)               # dipnot numaraları
-    text = re.sub(r"\[[^\]]{0,40}?\]", "", text)      # [kaynak belirtilmeli]
-    text = re.sub(r"\s+", " ", text)                  # çoklu boşluk
-    return text.strip()
+    text = re.sub(r"\[\d+\]", "", text)
+    text = re.sub(r"\[[^\]]{0,40}?\]", "", text)
+    return re.sub(r"\s+", " ", text).strip()
 
 
 def wikipedia_title(html: str) -> str:
-    """Sayfanın gerçek başlığı.
-
-    Wikipedia yönlendirmeleri sessizce takip ediyor: "Pasör" istediğimde bana
-    "Voleybol" makalesini veriyor. Başlığı okuyup daha önce indirdiğim bir
-    makaleye düştüysem atlıyorum, yoksa aynı metin veri setine iki kez girer.
-    """
+    """Canonical page title, used to detect redirects to an already-seen page."""
     soup = BeautifulSoup(html, "html.parser")
     h1 = soup.select_one("h1#firstHeading")
     return clean(h1.get_text(" ")) if h1 else ""
 
 
 def parse_wikipedia(html: str) -> list[dict]:
-    """Makaleyi {baslik, metin} bölümlerine ayır.
+    """Split an article into {baslik, paragraflar} sections.
 
-    Wikipedia'nın HTML'i düz: başlıklar ve paragraflar aynı seviyede sıralı
-    duruyor. Ben de sırayla yürüyüp bir başlık görünce yeni bölüm açıyorum,
-    paragraf görünce içinde bulunduğum bölüme ekliyorum.
+    Headings and paragraphs sit at the same level in document order, so this
+    walks that order and appends each paragraph to the current section.
     """
     soup = BeautifulSoup(html, "html.parser")
     body = soup.select_one("div.mw-parser-output")
     if body is None:
         return []
 
-    # Tablo, kutu, dipnot gibi metin olmayan şeyleri baştan atıyorum.
     for junk in body.select("table, .reflist, .navbox, .infobox, style, sup.reference"):
         junk.decompose()
 
@@ -221,31 +174,22 @@ def parse_wikipedia(html: str) -> list[dict]:
 
 
 def parse_generic(html: str) -> list[dict]:
-    """TVF gibi Wikipedia olmayan sayfalar için basit paragraf toplayıcı."""
     soup = BeautifulSoup(html, "html.parser")
     for junk in soup.select("script, style, nav, header, footer, form"):
         junk.decompose()
 
-    # Sadece <p>: <li> alsaydım menü ve link listeleri de metin sanılırdı.
-    paragraphs = []
-    for p in soup.find_all("p"):
-        text = clean(p.get_text(" "))
-        if len(text) >= MIN_PARAGRAPH_CHARS:
-            paragraphs.append(text)
-
+    # <p> only; <li> would pull in menus and link lists.
+    paragraphs = [
+        clean(p.get_text(" ")) for p in soup.find_all("p")
+        if len(clean(p.get_text(" "))) >= MIN_PARAGRAPH_CHARS
+    ]
     if not paragraphs:
         return []
     return [{"baslik": "Genel", "paragraflar": paragraphs}]
 
 
-# ---- sürücü ----------------------------------------------------------------
-
 def collect_tvf_articles() -> list[str]:
-    """İndeks sayfalarını gezip /icerik/... haber linklerini topla.
-
-    TVF'nin liste sayfalarında uzun paragraf yok, sadece link var; metin tek
-    tek haber sayfalarının içinde. Bu yüzden iki aşamalı gidiyorum.
-    """
+    """Two-stage crawl: index pages hold links, articles hold the text."""
     found: list[str] = []
     seen: set[str] = set()
 
@@ -260,10 +204,9 @@ def collect_tvf_articles() -> list[str]:
 
         soup = BeautifulSoup(html, "html.parser")
         for a in soup.find_all("a", href=True):
-            href = a["href"]
-            if not href.startswith("/icerik/"):
+            if not a["href"].startswith("/icerik/"):
                 continue
-            full = "https://tvf.org.tr" + href
+            full = "https://tvf.org.tr" + a["href"]
             if full not in seen:
                 seen.add(full)
                 found.append(full)
@@ -284,7 +227,6 @@ def scrape_one(name: str, url: str, parser, source: str,
     if html is None:
         return None
 
-    # Yönlendirme kontrolü: aynı makaleye ikinci kez düştüysem geç.
     if seen is not None:
         canonical = wikipedia_title(html)
         if canonical:
@@ -303,12 +245,7 @@ def scrape_one(name: str, url: str, parser, source: str,
     n_chars = sum(len(p) for s in sections for p in s["paragraflar"])
     print(f"  {len(sections)} bölüm, {n_par} paragraf, {n_chars} karakter")
 
-    return {
-        "kaynak": source,
-        "url": url,
-        "baslik": name,
-        "bolumler": sections,
-    }
+    return {"kaynak": source, "url": url, "baslik": name, "bolumler": sections}
 
 
 def main() -> None:
@@ -329,7 +266,8 @@ def main() -> None:
 
     print("\n=== Türkiye Voleybol Federasyonu ===")
     article_urls = collect_tvf_articles()
-    print(f"{len(article_urls)} haber linki bulundu, ilk {TVF_MAX_ARTICLES} tanesi alınacak\n")
+    print(f"{len(article_urls)} haber linki bulundu, "
+          f"ilk {TVF_MAX_ARTICLES} tanesi alınacak\n")
     for url in article_urls[:TVF_MAX_ARTICLES]:
         slug = url.rstrip("/").rsplit("/", 1)[-1]
         doc = scrape_one(slug, url, parse_generic, "tvf")

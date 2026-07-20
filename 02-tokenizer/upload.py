@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Ödev 2 BPE tokenizer'ını Hugging Face'e yükler.
+"""Uploads the assignment 2 BPE tokenizer to Hugging Face.
 
-Çalıştırmadan önce `hf auth login` yapmış olman ve train_tokenizer.py'yi
-çalıştırmış olman gerekiyor.
+Requires `hf auth login` and a previous run of train_tokenizer.py.
 
 Run:
     python 02-tokenizer/upload.py
@@ -19,9 +18,8 @@ from hf_upload import confirm_and_upload  # noqa: E402
 HERE = os.path.dirname(os.path.abspath(__file__))
 TOK_DIR = os.path.join(HERE, "voleykoc-bpe-tokenizer")
 
-# save_pretrained() transformers sürümüne göre farklı dosya kümesi yazıyor
-# (5.x special_tokens_map.json üretmiyor), o yüzden klasörde ne varsa onu
-# yüklüyorum -- sabit liste yazsam sürüm değişince kırılırdı.
+# save_pretrained() writes a different file set per transformers version
+# (5.x omits special_tokens_map.json), so whatever exists is uploaded.
 TOKENIZER_FILES = [
     "tokenizer.json",
     "tokenizer_config.json",

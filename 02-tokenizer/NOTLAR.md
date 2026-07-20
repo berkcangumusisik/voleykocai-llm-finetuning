@@ -1,4 +1,4 @@
-# 02-tokenizer — notlar
+# 02-tokenizer: notlar
 
 Ödev 2: alana özel BPE tokenizer.
 
@@ -13,9 +13,9 @@ python 02-tokenizer/upload.py            # hf auth login gerekir
 
 | Dosya | Ne yapar |
 |---|---|
-| `bpe.py` | BPE'nin sıfırdan, saf stdlib implementasyonu. **Yayımlanan tokenizer bu değil** — referans/kanıt olarak duruyor. Önceki ödevimden (countries-bpe-tokenizer) geldi, o yüzden yorumları İngilizce. |
+| `bpe.py` | BPE'nin sıfırdan, saf stdlib implementasyonu. **Yayımlanan tokenizer bu değil**: referans/kanıt olarak duruyor. Önceki ödevimden (countries-bpe-tokenizer) geldi, o yüzden yorumları İngilizce. |
 | `train_tokenizer.py` | `tokenizers` kütüphanesiyle byte-level BPE eğitir, HF formatında kaydeder |
-| `voleykoc-bpe-tokenizer/` | Eğitim çıktısı — HF'ye yüklenen dosyalar |
+| `voleykoc-bpe-tokenizer/` | Eğitim çıktısı: HF'ye yüklenen dosyalar |
 | `upload.py` | HF'ye yükler (onay sorar) |
 | `README_hf.md` | HF model kartı |
 

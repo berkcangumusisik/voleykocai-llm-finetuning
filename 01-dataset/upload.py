@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Ödev 1 veri setini Hugging Face'e yükler.
+"""Uploads the assignment 1 dataset to Hugging Face.
 
-Çalıştırmadan önce `hf auth login` yapmış olman gerekiyor. Script neyi nereye
-yükleyeceğini yazdırıp onay bekler.
+Requires `hf auth login` first. Prints what it will upload and waits for
+confirmation.
 
 Run:
     python 01-dataset/upload.py
