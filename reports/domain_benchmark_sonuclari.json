@@ -1,0 +1,16 @@
+{
+  "benchmark": "berkcangumusisik/voleykoc-benchmark",
+  "soru_sayisi": 40,
+  "not": "40 soru kucuk bir settir; 3 soruluk fark (7.5 puan) istatistiksel guven araliginin icindedir, yani anlamli degil. Model prose (acik uclu) cevap vermeye egitildigi icin coktan secmeli format onun asil yetenegini tam olcmez.",
+  "base": {
+    "model": "unsloth/Qwen3-4B-Instruct-2507",
+    "basari": 55.0,
+    "dogru": 22
+  },
+  "finetune": {
+    "model": "berkcangumusisik/voleykoc-qwen3-4b-lora",
+    "basari": 47.5,
+    "dogru": 19
+  },
+  "fark": -7.5
+}

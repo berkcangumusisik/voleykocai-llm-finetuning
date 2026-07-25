@@ -70,6 +70,19 @@ Bölüm bazında en çok değişenler (her bölüm 100 soru, bu ölçekte ±5-7 
 
 Ölçüm notu: `olcum.py`'nin puanlaması üç kademeli (tam harf eşleşmesi, ilk harf eşleşmesi, anlamsal benzerlik). İlk iki kademe birebir kullanıldı; üçüncü kademedeki anlamsal benzerlik modeli Colab'daki sürüm çakışması nedeniyle kapatıldı. Prompt "sadece harf yaz" dediği için model neredeyse her zaman düz harf ürettiğinden bu kademe pratikte çok seyrek devreye girerdi.
 
+## Alana Özel Benchmark (Türkçe Voleybol)
+
+MMLU genel kültür ölçüyor; modelin uzmanlaştığı dar alanı (voleybol) ölçemez. Bu boşluğu kapatmak için, modelin eğitimde hiç görmediği, elle yazılmış 40 çoktan seçmeli voleybol sorusundan oluşan held-out bir test seti kuruldu ve ayrı bir veri seti olarak yayımlandı: [`berkcangumusisik/voleykoc-benchmark`](https://huggingface.co/datasets/berkcangumusisik/voleykoc-benchmark). Puanlama yine harf eşleşmesiyle.
+
+| Model | Başarı (40 soru) |
+|---|---:|
+| Base Qwen3-4B-Instruct-2507 | %55.0 (22/40) |
+| **VoleykoçAI (fine-tune)** | %47.5 (19/40) |
+
+**Fark: -7.5 puan.** Fine-tune kendi alanında da base'i geçmedi. Ama bu 40 soruda yalnızca 3 soruluk bir farktır (22 vs 19) ve n=40 gibi küçük bir sette bu, istatistiksel güven aralığının içindedir; yani "ölçülebilir bir iyileşme yok" demek doğru, "belirgin şekilde kötü" demek değil.
+
+> Bu sonuç MMLU'daki -2 puanla ve genel bulguyla tutarlı: 166 örneklik küçük bir prose (açık uçlu) veriyle yapılan fine-tune, modele **üslup** kazandırıyor, yeni **olgu bilgisi** değil. Çoktan seçmeli bir olgu testinde de bu yüzden fark yaratmıyor. Ayrıca model açık uçlu antrenörlük cevabı vermeye eğitildi; çoktan seçmeli format onun asıl yeteneğini (prose cevap üretimi) tam ölçmez. Onu daha iyi ölçmek için açık uçlu + LLM-hakem bir değerlendirme gerekir. Benchmark'ın tamamı held-out (eğitim verisinde yok), yani skor ezberi değil gerçek genellemeyi ölçer.
+
 ## Kullanım
 
 Unsloth ile:

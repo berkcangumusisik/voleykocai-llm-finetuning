@@ -1,8 +1,35 @@
 # 05-benchmark: notlar
 
-Fine-tune edilmiş modelin Türkçe MMLU benchmark ölçümü.
+İki benchmark var:
 
-## Bu klasör lokalde çalışmaz
+1. **MMLU (genel kültür)** — `mmlu_benchmark.ipynb`, hocanın hazır `alibayram/yapay_zeka_turkce_mmlu` seti (Hafta 2.1 ödevi).
+2. **Alana özel (voleybol)** — kendi kurduğumuz held-out çoktan seçmeli set (Hafta 2.2 ödevi).
+
+## Alana özel benchmark (Hafta 2.2)
+
+Kendi senaryomuza özel test seti. Dosyalar:
+
+| Dosya | Ne yapar |
+|---|---|
+| `build_benchmark.py` | 40 elle yazılmış çoktan seçmeli soruyu doğrular ve `data/benchmark/voleykoc_benchmark.jsonl` üretir |
+| `domain_benchmark.ipynb` | Colab: base vs fine-tune'u bu sette ölçer |
+| `upload_benchmark.py` | Benchmark'ı HF'ye ayrı veri seti olarak yayımlar (`voleykoc-benchmark`) |
+| `README_hf.md` | HF dataset kartı |
+
+Çalıştırma sırası:
+
+```bash
+python 05-benchmark/build_benchmark.py    # sorular -> jsonl (lokalde)
+python 05-benchmark/upload_benchmark.py   # HF'ye yayımla (hf auth login gerekir)
+# sonra domain_benchmark.ipynb -> Colab (base + fine-tune ölçümü)
+```
+
+Sonuç (`domain_benchmark_sonuclari.json`) LoRA model kartına eklenir.
+
+Held-out garantisi: sorular bu test için ayrıca yazıldı, eğitim verisinde
+(`01-dataset/seeds.jsonl` + scrape korpusu) yok. Model bu soruları görmedi.
+
+## MMLU benchmark (Hafta 2.1)
 
 Ölçüm 4B modeli GPU'da çalıştırdığı için **Google Colab'da** yapılıyor. `mmlu_benchmark.ipynb` dosyasını Colab'a yükle, T4 GPU seç, hücreleri sırayla çalıştır.
 
