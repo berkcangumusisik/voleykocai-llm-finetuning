@@ -44,6 +44,32 @@ Teknik, taktik ve rotasyon sistemleri, antrenman planlaması, kondisyon, sakatl�
 
 Veri seti: [`berkcangumusisik/voleykoc-antrenorluk-tr`](https://huggingface.co/datasets/berkcangumusisik/voleykoc-antrenorluk-tr), 166 örnek.
 
+## Türkçe MMLU Benchmark
+
+Model, [`alibayram/yapay_zeka_turkce_mmlu`](https://huggingface.co/datasets/alibayram/yapay_zeka_turkce_mmlu) benchmark'ında (6200 soru, 62 bölüm) ölçüldü ve base model ile karşılaştırıldı. Ölçüm kodu hocanın [`olcum.py`](https://huggingface.co/datasets/alibayram/yapay_zeka_turkce_mmlu_bolum_sonuclari/blob/main/olcum.py) dosyasındaki puanlama mantığıyla birebir aynı; çıkarım LoRA adaptörü için Unsloth ile yapıldı.
+
+| Model | Parametre | Başarı (6200 soru) |
+|---|---|---:|
+| Base Qwen3-4B-Instruct-2507 | 4B | %54.42 (3374/6200) |
+| **VoleykoçAI (fine-tune)** | 4B (LoRA) | **%52.40** (3249/6200) |
+| qwen3:14b (liderlik, referans) | 14.8B | %71.65 |
+| gemma2:9b (liderlik, referans) | 9.2B | %69.26 |
+
+**Fine-tune farkı: -2.02 puan.** Base ile fine-tune arasında yalnızca 2 puanlık fark var. MMLU genel kültür ölçer (62 bölüm: hukuk, iktisat, din, aşçılık, ehliyet...); bu model ise 166 örneklik dar bir voleybol verisiyle eğitildi. Genel bilginin neredeyse tamamen korunmuş olması, dar alan uzmanlaşmasının modeli bozmadığını gösteriyor. Amaç kazanmak değil, ölçmek ve karşılaştırmalı raporlamaktı.
+
+Bölüm bazında en çok değişenler (her bölüm 100 soru, bu ölçekte ±5-7 gürültü sayılır):
+
+| Bölüm | Base | Fine-tune | Fark |
+|---|---:|---:|---:|
+| Sağlık Yönetimi | %53 | %60 | +7 |
+| Kültürel Miras ve Turizm | %61 | %67 | +6 |
+| Üniversite Giriş Temel Bilimler | %46 | %52 | +6 |
+| DHBT | %43 | %30 | -13 |
+| Sosyal Hizmetler | %58 | %48 | -10 |
+| İktisat | %58 | %50 | -8 |
+
+Ölçüm notu: `olcum.py`'nin puanlaması üç kademeli (tam harf eşleşmesi, ilk harf eşleşmesi, anlamsal benzerlik). İlk iki kademe birebir kullanıldı; üçüncü kademedeki anlamsal benzerlik modeli Colab'daki sürüm çakışması nedeniyle kapatıldı. Prompt "sadece harf yaz" dediği için model neredeyse her zaman düz harf ürettiğinden bu kademe pratikte çok seyrek devreye girerdi.
+
 ## Kullanım
 
 Unsloth ile:

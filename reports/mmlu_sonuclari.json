@@ -1,0 +1,35 @@
+{
+  "benchmark": "alibayram/yapay_zeka_turkce_mmlu",
+  "soru_sayisi": 6200,
+  "not": "Anlamsal benzerlik yedegi (olcum.py 3. kademe) Colab surum catismasi nedeniyle kapatildi; puanlama harf eslesmesiyle (ilk iki kademe) yapildi. Bolum bazi farklar n=100 oldugu icin gurultu icerir; anlamli olan 6200 soru uzerindeki genel -2.02 puan.",
+  "base": {
+    "model": "unsloth/Qwen3-4B-Instruct-2507",
+    "basari": 54.42,
+    "dogru": 3374
+  },
+  "finetune": {
+    "model": "berkcangumusisik/voleykoc-qwen3-4b-lora",
+    "basari": 52.4,
+    "dogru": 3249
+  },
+  "fark": -2.02,
+  "bolum_karsilastirma": [
+    {"bolum": "DHBT", "soru": 100, "base": 43.0, "finetune": 30.0, "fark": -13.0},
+    {"bolum": "Sosyal Hizmetler", "soru": 100, "base": 58.0, "finetune": 48.0, "fark": -10.0},
+    {"bolum": "Fotoğrafçılık ve Kameramanlık", "soru": 100, "base": 61.0, "finetune": 53.0, "fark": -8.0},
+    {"bolum": "Futbol", "soru": 100, "base": 41.0, "finetune": 33.0, "fark": -8.0},
+    {"bolum": "İktisat", "soru": 100, "base": 58.0, "finetune": 50.0, "fark": -8.0},
+    {"bolum": "Dini Bilgiler", "soru": 100, "base": 62.0, "finetune": 55.0, "fark": -7.0},
+    {"bolum": "KPSS Denemeleri", "soru": 100, "base": 40.0, "finetune": 33.0, "fark": -7.0},
+    {"bolum": "Kamu Yönetimi", "soru": 100, "base": 62.0, "finetune": 55.0, "fark": -7.0},
+    {"bolum": "Marka İletişimi", "soru": 100, "base": 66.0, "finetune": 59.0, "fark": -7.0},
+    {"bolum": "Sağlık Yönetimi", "soru": 100, "base": 53.0, "finetune": 60.0, "fark": 7.0},
+    {"bolum": "Spor Yönetimi", "soru": 100, "base": 64.0, "finetune": 57.0, "fark": -7.0},
+    {"bolum": "İnsan Kaynakları Yönetimi", "soru": 100, "base": 58.0, "finetune": 51.0, "fark": -7.0},
+    {"bolum": "Kültürel Miras ve Turizm", "soru": 100, "base": 61.0, "finetune": 67.0, "fark": 6.0},
+    {"bolum": "Üniversite Giriş Sınavı Temel Bilimler", "soru": 100, "base": 46.0, "finetune": 52.0, "fark": 6.0},
+    {"bolum": "Laborant ve Veteriner Sağlık", "soru": 100, "base": 52.0, "finetune": 57.0, "fark": 5.0},
+    {"bolum": "Siyer", "soru": 100, "base": 38.0, "finetune": 43.0, "fark": 5.0},
+    {"bolum": "Yerel Yönetimler", "soru": 100, "base": 49.0, "finetune": 54.0, "fark": 5.0}
+  ]
+}
