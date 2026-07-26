@@ -72,16 +72,23 @@ Bölüm bazında en çok değişenler (her bölüm 100 soru, bu ölçekte ±5-7 
 
 ## Alana Özel Benchmark (Türkçe Voleybol)
 
-MMLU genel kültür ölçüyor; modelin uzmanlaştığı dar alanı (voleybol) ölçemez. Bu boşluğu kapatmak için, modelin eğitimde hiç görmediği, elle yazılmış 40 çoktan seçmeli voleybol sorusundan oluşan held-out bir test seti kuruldu ve ayrı bir veri seti olarak yayımlandı: [`berkcangumusisik/voleykoc-benchmark`](https://huggingface.co/datasets/berkcangumusisik/voleykoc-benchmark). Puanlama yine harf eşleşmesiyle.
+MMLU genel kültür ölçüyor; modelin uzmanlaştığı dar alanı (voleybol) ölçemez. Bu boşluğu kapatmak için, modelin eğitimde hiç görmediği, elle yazılmış **102 çoktan seçmeli** voleybol sorusundan oluşan held-out bir test seti kuruldu ve ayrı bir veri seti olarak yayımlandı: [`berkcangumusisik/voleykoc-benchmark`](https://huggingface.co/datasets/berkcangumusisik/voleykoc-benchmark). Puanlama yine harf eşleşmesiyle. Karşılaştırma **5 model** üzerinde yapıldı.
 
-| Model | Başarı (40 soru) |
+| Model | Başarı (102 soru) |
 |---|---:|
-| Base Qwen3-4B-Instruct-2507 | %55.0 (22/40) |
-| **VoleykoçAI (fine-tune)** | %47.5 (19/40) |
+| Base Qwen3-4B-Instruct-2507 | %65.69 (67/102) |
+| Llama-3.2-3B-Instruct | %63.73 (65/102) |
+| Gemma-3-4B-it | %60.78 (62/102) |
+| **VoleykoçAI (fine-tune)** | %50.98 (52/102) |
+| Qwen3-1.7B | %7.84 (8/102) |
 
-**Fark: -7.5 puan.** Fine-tune kendi alanında da base'i geçmedi. Ama bu 40 soruda yalnızca 3 soruluk bir farktır (22 vs 19) ve n=40 gibi küçük bir sette bu, istatistiksel güven aralığının içindedir; yani "ölçülebilir bir iyileşme yok" demek doğru, "belirgin şekilde kötü" demek değil.
+**Base vs fine-tune farkı: -14.71 puan.** Bu sefer fark 40 soruluk denemeden büyük ve anlamlı: fine-tune, base'in 15 soru altında kaldı (52 vs 67). Yani dürüst sonuç, fine-tune bu çoktan seçmeli testte modeli **geriletti**.
 
-> Bu sonuç MMLU'daki -2 puanla ve genel bulguyla tutarlı: 166 örneklik küçük bir prose (açık uçlu) veriyle yapılan fine-tune, modele **üslup** kazandırıyor, yeni **olgu bilgisi** değil. Çoktan seçmeli bir olgu testinde de bu yüzden fark yaratmıyor. Ayrıca model açık uçlu antrenörlük cevabı vermeye eğitildi; çoktan seçmeli format onun asıl yeteneğini (prose cevap üretimi) tam ölçmez. Onu daha iyi ölçmek için açık uçlu + LLM-hakem bir değerlendirme gerekir. Benchmark'ın tamamı held-out (eğitim verisinde yok), yani skor ezberi değil gerçek genellemeyi ölçer.
+> **Yorum (dürüst).** Bu gerileme beklenen yönde ama beklenenden büyük. 166 örneklik küçük bir prose (açık uçlu) veriyle yapılan fine-tune, modeli düz harf seçmekten uzaklaştırıp prose üretmeye kaydırıyor; bu kadar az örnek alan bilgisi *ekleyemezken* format uyumunu *bozabiliyor*. Sonuç, "az veriyle dar fine-tune genel yeteneği aşındırır" bulgusunun net bir örneği. Modelin asıl değeri açık uçlu antrenörlük cevabı üretmekte; çoktan seçmeli format bunu ölçmez, o yüzden bu skor modelin kullanışlılığının tamamı değildir. Daha temiz bir sonuç için eğitim `train_on_responses_only` ile düzeltilip yeniden ölçülebilir.
+>
+> **Qwen3-1.7B (%7.84) aykırı bir değerdir.** Bu bir "düşünme" modelidir; harf yerine akıl yürütme metni ürettiği için harf-eşleşme puanlaması onu taban-altı puanlıyor. Bu skor modelin gerçek bilgisini değil, çıktı formatı uyumsuzluğunu gösterir; şeffaflık için tabloda bırakıldı.
+>
+> Benchmark'ın tamamı held-out (eğitim verisinde yok), yani skorlar ezberi değil gerçek genellemeyi ölçer.
 
 ## Kullanım
 

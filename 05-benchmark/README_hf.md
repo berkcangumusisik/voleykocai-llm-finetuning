@@ -24,7 +24,7 @@ configs:
 
 [`berkcangumusisik/voleykoc-qwen3-4b-lora`](https://huggingface.co/berkcangumusisik/voleykoc-qwen3-4b-lora) modelinin kendi alanında (Türkçe voleybol antrenörlüğü) değerlendirilmesi için elle yazılmış çoktan seçmeli test seti. Bir yapay zekâ dersi ödevi kapsamında hazırlandı.
 
-40 soru, 8 konu (kural, teknik, taktik, libero, kondisyon, sakatlık, antrenman, genel). Her soru tek doğru cevaplı.
+102 soru, çok sayıda konu (kural, teknik, taktik, libero, kondisyon, sakatlık, antrenman, genel). Her soru tek doğru cevaplı.
 
 ## Neden bu benchmark?
 
@@ -65,7 +65,7 @@ ds = load_dataset("berkcangumusisik/voleykoc-benchmark", split="train")
 
 ## Sınır
 
-40 soru küçük bir settir; bölüm bazlı farklar gürültü içerir. Çoktan seçmeli format, prose (açık uçlu) cevap veren bir modelin tüm yeteneğini yansıtmayabilir; bu benchmark bilgi doğruluğunu ölçer, üslubu değil.
+102 soru orta ölçekli bir settir; bölüm bazlı farklar gürültü içerir. Çoktan seçmeli format, prose (açık uçlu) cevap veren bir modelin tüm yeteneğini yansıtmayabilir; bu benchmark bilgi doğruluğunu ölçer, üslubu değil.
 
 ## Lisans
 

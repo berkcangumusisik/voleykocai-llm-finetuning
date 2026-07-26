@@ -1,16 +1,14 @@
 {
   "benchmark": "berkcangumusisik/voleykoc-benchmark",
-  "soru_sayisi": 40,
-  "not": "40 soru kucuk bir settir; 3 soruluk fark (7.5 puan) istatistiksel guven araliginin icindedir, yani anlamli degil. Model prose (acik uclu) cevap vermeye egitildigi icin coktan secmeli format onun asil yetenegini tam olcmez.",
-  "base": {
-    "model": "unsloth/Qwen3-4B-Instruct-2507",
-    "basari": 55.0,
-    "dogru": 22
-  },
-  "finetune": {
-    "model": "berkcangumusisik/voleykoc-qwen3-4b-lora",
-    "basari": 47.5,
-    "dogru": 19
-  },
-  "fark": -7.5
+  "soru_sayisi": 102,
+  "model_sayisi": 5,
+  "not": "5 model, 102 held-out soru. Fine-tune base'in 15 soru altinda (-14.71 puan); n=102'de bu anlamli bir gerileme, gurultu degil. Kucuk prose veri modeli harf secmekten uzaklastirmis. Qwen3-1.7B (%7.84) aykiri: dusunme modu nedeniyle harf yerine akil yurutme metni uretip harf eslesmesinde taban-alti puanliyor, gercek bilgi degil.",
+  "modeller": [
+    {"etiket": "Base Qwen3-4B", "model": "unsloth/Qwen3-4B-Instruct-2507", "basari": 65.69, "dogru": 67},
+    {"etiket": "Llama-3.2-3B", "model": "unsloth/Llama-3.2-3B-Instruct", "basari": 63.73, "dogru": 65},
+    {"etiket": "Gemma-3-4B", "model": "unsloth/gemma-3-4b-it", "basari": 60.78, "dogru": 62},
+    {"etiket": "VoleykoçAI (fine-tune)", "model": "berkcangumusisik/voleykoc-qwen3-4b-lora", "basari": 50.98, "dogru": 52},
+    {"etiket": "Qwen3-1.7B", "model": "unsloth/Qwen3-1.7B", "basari": 7.84, "dogru": 8}
+  ],
+  "base_vs_finetune_fark": -14.71
 }

@@ -1,40 +1,102 @@
-{"soru": "14 yaş altı grupta antrenmanın asıl amacı ne olmalıdır?", "secenekler": ["Maç kazanmak", "Beceri gelişimi ve oyun sevgisi", "Ağır kuvvet antrenmanı", "Erken uzmanlaşma"], "cevap": 1, "konu": "antrenman"}
-{"soru": "Parmak pasta topa kaç parmakla ve nasıl dokunulur?", "secenekler": ["İki avuçla kavrayarak", "On parmak uçlarıyla, alnın üstünde", "Yumrukla", "Tek elle"], "cevap": 1, "konu": "teknik"}
-{"soru": "Antrenman yükünü haftada en fazla ne kadar artırmak sakatlık riskini düşürür?", "secenekler": ["Yaklaşık %10", "%50", "%100", "Sınır yoktur"], "cevap": 0, "konu": "sakatlik"}
-{"soru": "Erkeklerde file yüksekliği kaç metredir?", "secenekler": ["2.24 m", "2.35 m", "2.43 m", "2.50 m"], "cevap": 2, "konu": "kural"}
-{"soru": "Rotasyon hangi yönde yapılır?", "secenekler": ["Saat yönünde", "Saat yönünün tersine", "Rastgele", "Antrenörün işaretine göre"], "cevap": 0, "konu": "kural"}
-{"soru": "Float (titreşimli) servis ile jump servisin temel farkı nedir?", "secenekler": ["Float sıçrayarak atılır", "Float dönüşsüz ve sabit temaslı, jump sıçramalı ve güçlüdür", "İkisi aynıdır", "Jump servis dönüşsüzdür"], "cevap": 1, "konu": "teknik"}
-{"soru": "Voleybolda en sık görülen sakatlıklardan biri hangisidir?", "secenekler": ["Ayak bileği burkulması", "Kaburga kırığı", "Beyin sarsıntısı", "Diz çıkığı"], "cevap": 0, "konu": "sakatlik"}
-{"soru": "Sıçrayıcı dizi (patellar tendinopati) riskini azaltmak için ne önemlidir?", "secenekler": ["Antrenman hacmini ani artırmak", "Doğru iniş tekniği ve eksantrik kuvvet çalışması", "Sadece dinlenmek", "Daha çok sıçramak"], "cevap": 1, "konu": "sakatlik"}
-{"soru": "Sıçrama yüksekliğini artırmak için hangi antrenman türü en uygundur?", "secenekler": ["Sadece uzun mesafe koşusu", "Pliometrik ve kuvvet çalışması", "Sadece esneme", "Yüzme"], "cevap": 1, "konu": "kondisyon"}
-{"soru": "Blok, takımın üç vuruş hakkından sayılır mı?", "secenekler": ["Evet, birinci vuruş sayılır", "Hayır, bloktan sayılmaz", "Sadece sayı olursa sayılır", "Evet, üçüncü vuruş sayılır"], "cevap": 1, "konu": "kural"}
-{"soru": "Beşinci set (tie-break) kaç sayıya oynanır?", "secenekler": ["25", "21", "15", "11"], "cevap": 2, "konu": "kural"}
-{"soru": "Sağ elini kullanan bir smaçörün klasik dört adımlı yaklaşım ritmi nasıldır?", "secenekler": ["sağ-sol-sağ-sol, hepsi eşit", "sol-sağ-sol-sağ, son iki adım hızlı", "tek adım sıçrama", "yavaş dört adım"], "cevap": 1, "konu": "teknik"}
-{"soru": "Servis atılırken top file üstüne değip karşı sahaya geçerse ne olur?", "secenekler": ["Servis geçersizdir, sayı rakibe gider", "Servis tekrar edilir", "Oyun devam eder, geçerlidir", "Servis atan oyuncu değişir"], "cevap": 2, "konu": "kural"}
-{"soru": "Bir voleybol seti kaç sayıya oynanır ve kazanmak için en az kaç sayı fark gerekir?", "secenekler": ["21 sayı, 1 fark", "25 sayı, 2 fark", "25 sayı, 1 fark", "15 sayı, 2 fark"], "cevap": 1, "konu": "kural"}
-{"soru": "Genç yaş grubunda erken uzmanlaşma (tek pozisyonda oynatma) neden sakıncalıdır?", "secenekler": ["Sıkıcı olduğu için", "Dengeli gelişimi engellediği ve sakatlık riskini artırdığı için", "Kural yasakladığı için", "Sakıncası yoktur"], "cevap": 1, "konu": "antrenman"}
-{"soru": "Voleybol sahasının ölçüleri nedir?", "secenekler": ["16 x 8 m", "18 x 9 m", "20 x 10 m", "18 x 12 m"], "cevap": 1, "konu": "kural"}
-{"soru": "Manşet pasta itiş gücü ağırlıklı olarak nereden gelmelidir?", "secenekler": ["Kollardan", "Bileklerden", "Bacaklardan", "Omuzlardan"], "cevap": 2, "konu": "teknik"}
-{"soru": "Pasör arka bölgedeyken 5-1 sisteminde takımın hücum gücü nasıldır?", "secenekler": ["En düşük", "Değişmez", "En yüksek (üç hücumcu koşabilir)", "Sadece iki hücumcu vardır"], "cevap": 2, "konu": "taktik"}
-{"soru": "Orta oyuncunun (ortacı) temel görevleri nelerdir?", "secenekler": ["Sadece servis atmak", "Hızlı orta hücum ve blokun merkezinde olmak", "Sadece savunma", "Pas dağıtmak"], "cevap": 1, "konu": "taktik"}
-{"soru": "Blokta 'penetrasyon' ne demektir?", "secenekler": ["Elleri fileye paralel tutmak", "Bilekleri kırıp elleri karşı sahaya uzatmak", "Fileye dokunmak", "Sıçramadan blok yapmak"], "cevap": 1, "konu": "teknik"}
-{"soru": "Bir takım topu karşı sahaya göndermeden önce en fazla kaç kez oynayabilir (blok hariç)?", "secenekler": ["2", "3", "4", "Sınırsız"], "cevap": 1, "konu": "kural"}
-{"soru": "Maç öncesi ısınmada hangisi tercih edilmelidir?", "secenekler": ["Uzun statik esneme", "Dinamik esneme ve hareketlilik", "Ağır kuvvet çalışması", "Hiç ısınmamak"], "cevap": 1, "konu": "kondisyon"}
-{"soru": "5-1 rotasyon sisteminde takımda kaç pasör vardır?", "secenekler": ["1", "2", "3", "Pasör yoktur"], "cevap": 0, "konu": "taktik"}
-{"soru": "Manşet pasında top ideal olarak nereyle karşılanır?", "secenekler": ["Avuç içleriyle", "Parmak uçlarıyla", "Ön kolların iç düz yüzeyiyle", "Bileklerle"], "cevap": 2, "konu": "teknik"}
-{"soru": "Sahada bir takımdan aynı anda kaç oyuncu bulunur?", "secenekler": ["5", "6", "7", "4"], "cevap": 1, "konu": "kural"}
-{"soru": "Libero hangi bölgede oynar?", "secenekler": ["Sadece ön bölge", "Sadece arka bölge", "Tüm saha", "Sadece 1 numara"], "cevap": 1, "konu": "kural"}
-{"soru": "Türkiye Erkek Millî Voleybol Takımı'nın lakabı nedir?", "secenekler": ["Filenin Sultanları", "Filenin Efeleri", "Millî Filenin Aslanları", "Anadolu Kartalları"], "cevap": 1, "konu": "genel"}
-{"soru": "Yeni başlayan bir grupta hangi teknikler önce öğretilmelidir?", "secenekler": ["Jump servis ve blok", "Manşet ve parmak pas", "Slide hücumu", "Çift blok"], "cevap": 1, "konu": "antrenman"}
-{"soru": "Arka bölge oyuncusu hücum vuruşunu nereden yaparsa kurallara uygundur?", "secenekler": ["Fileye istediği kadar yakınlaşarak", "3 metre çizgisinin gerisinden sıçrayarak", "Sadece file önünden", "Arka bölge oyuncusu hücum yapamaz"], "cevap": 1, "konu": "kural"}
-{"soru": "Pasör dış oyuncuya pası fileden ne kadar açık vermelidir?", "secenekler": ["Fileye yapışık", "Yaklaşık 30-50 cm açık", "2 metre açık", "Saha ortasına"], "cevap": 1, "konu": "taktik"}
-{"soru": "Liberonun forması diğer oyunculara göre nasıldır?", "secenekler": ["Aynı renktedir", "Farklı (zıt) renktedir", "Numarasızdır", "Kaptan bandı taşır"], "cevap": 1, "konu": "kural"}
-{"soru": "Smaçta topa vuruş anında kol nasıl olmalıdır?", "secenekler": ["Dirsek bükülü", "Tam uzatılmış ve yüksekte", "Vücuda yakın", "Aşağıda"], "cevap": 1, "konu": "teknik"}
-{"soru": "Türkiye Kadın Millî Voleybol Takımı'nın lakabı nedir?", "secenekler": ["Filenin Efeleri", "Filenin Sultanları", "Ay-Yıldızlılar", "Boğalar"], "cevap": 1, "konu": "genel"}
-{"soru": "Modern servis karşılamada genellikle kaç oyuncu görev alır?", "secenekler": ["6", "5", "3", "2"], "cevap": 2, "konu": "taktik"}
-{"soru": "4-2 sisteminin 5-1'e göre avantajı nedir?", "secenekler": ["Daha çok hücumcu", "Her rotasyonda ön bölgede pasör bulunması, sistemin basitliği", "Daha hızlı hücum", "Liberosuz oynanması"], "cevap": 1, "konu": "taktik"}
+{"soru": "Uluslararası Voleybol Federasyonu (FIVB) hangi yıl kuruldu?", "secenekler": ["1928", "1947", "1964", "1980"], "cevap": 1, "konu": "genel"}
 {"soru": "Libero aşağıdakilerden hangisini yapamaz?", "secenekler": ["Manşet pas", "File üstünden hücum vuruşu", "Servis karşılama", "Kurtarış"], "cevap": 1, "konu": "kural"}
-{"soru": "Servis karşılamada oyuncular nasıl konumlanmalıdır?", "secenekler": ["Sabit noktalarda durarak", "Topun düşeceği tahmini noktaya göre hareket ederek", "Hepsi filede", "Rastgele"], "cevap": 1, "konu": "antrenman"}
-{"soru": "Pasör çaprazı (opposite) hangi oyuncudur?", "secenekler": ["Liberonun yerine giren", "Pasörün karşısında dizilen, sağ kanattan hücum eden", "Orta oyuncu", "İkinci libero"], "cevap": 1, "konu": "taktik"}
+{"soru": "1 numara bölgesi neresidir (servis bölgesi)?", "secenekler": ["Arka sağ", "Ön sol", "Ön orta", "Arka sol"], "cevap": 0, "konu": "pozisyon"}
+{"soru": "Voleybol sahasının ölçüleri nedir?", "secenekler": ["16 x 8 m", "18 x 9 m", "20 x 10 m", "18 x 12 m"], "cevap": 1, "konu": "kural"}
+{"soru": "Sıçrama yüksekliğini en çok hangi ikili birlikte belirler?", "secenekler": ["Boy ve kilo", "Kuvvet ve patlayıcılık", "Yaş ve cinsiyet", "Ayakkabı ve saha"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Pasör sahada yoksa (out-of-system) genelde kim ikinci topu kaldırır?", "secenekler": ["Kaleci", "Libero ya da en yakın oyuncu", "Orta oyuncu zorunlu", "Hakem"], "cevap": 1, "konu": "taktik"}
+{"soru": "Servis attıktan sonra oyuncuların pozisyonlarına geçmesine ne denir?", "secenekler": ["Rotasyon", "Switch (yer değiştirme)", "Blok", "Kapatma"], "cevap": 1, "konu": "taktik"}
+{"soru": "Blok, takımın üç vuruş hakkından sayılır mı?", "secenekler": ["Evet, birinci vuruş sayılır", "Hayır, bloktan sayılmaz", "Sadece sayı olursa sayılır", "Evet, üçüncü vuruş sayılır"], "cevap": 1, "konu": "kural"}
+{"soru": "Antrenman periyotlamasının amacı nedir?", "secenekler": ["Sürekli maksimum yüklenmek", "Yükü planlı dağıtıp form ve toparlanmayı dengelemek", "Hiç dinlenmemek", "Sadece maç oynamak"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Pankek (pancake) tekniği ne için kullanılır?", "secenekler": ["Servis atmak", "Yere düşen topu elin sırtıyla kurtarmak", "Blok yapmak", "Pas vermek"], "cevap": 1, "konu": "teknik"}
+{"soru": "Hücum kapatma (coverage) ne demektir?", "secenekler": ["Bloğu kapatmak", "Smaçörün bloktan sekecek topu için arkadaşlarının toplanması", "Servisi engellemek", "Fileyi kapatmak"], "cevap": 1, "konu": "taktik"}
 {"soru": "Bir hücumcuya antrenman başına tam güç smaç sayısında sınır koymanın sebebi nedir?", "secenekler": ["Topları korumak", "Omuz ve sırt sakatlıklarını önlemek", "Süreyi kısaltmak", "Kural gereği"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Modern servis karşılamada genellikle kaç oyuncu görev alır?", "secenekler": ["6", "5", "3", "2"], "cevap": 2, "konu": "taktik"}
+{"soru": "Saha üzerindeki 3 metre çizgisinin diğer adı nedir?", "secenekler": ["Servis çizgisi", "Hücum çizgisi", "Orta çizgi", "Dip çizgi"], "cevap": 1, "konu": "kural"}
+{"soru": "Plaj voleybolunda bir takımda kaç oyuncu bulunur?", "secenekler": ["2", "3", "4", "6"], "cevap": 0, "konu": "genel"}
+{"soru": "Türkiye Kadın Millî Voleybol Takımı'nın lakabı nedir?", "secenekler": ["Filenin Efeleri", "Filenin Sultanları", "Ay-Yıldızlılar", "Boğalar"], "cevap": 1, "konu": "genel"}
+{"soru": "Birinci tempo (hızlı orta) hücum kime yapılır?", "secenekler": ["Dış oyuncuya", "Orta oyuncuya", "Liberoya", "Pasöre"], "cevap": 1, "konu": "taktik"}
+{"soru": "İyi bir antrenman planı yaş grubuna göre öncelikle neyi gözetmeli?", "secenekler": ["Sadece kazanmayı", "Gelişim aşaması ve güvenliği", "Seyirciyi", "Ekonomiyi"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Manşet pasta itiş ağırlıklı nereden gelir?", "secenekler": ["Kollardan", "Bacaklardan", "Bileklerden", "Boyundan"], "cevap": 1, "konu": "teknik"}
+{"soru": "14 yaş altı grupta antrenmanın asıl amacı ne olmalıdır?", "secenekler": ["Maç kazanmak", "Beceri gelişimi ve oyun sevgisi", "Ağır kuvvet antrenmanı", "Erken uzmanlaşma"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Genç sporcuda ağır kuvvet antrenmanı yerine ne önerilir?", "secenekler": ["Hiç antrenman", "Kendi vücut ağırlığıyla çalışma", "Maksimum ağırlık", "Sadece koşu"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Manşet pasta itiş gücü ağırlıklı olarak nereden gelmelidir?", "secenekler": ["Kollardan", "Bileklerden", "Bacaklardan", "Omuzlardan"], "cevap": 2, "konu": "teknik"}
+{"soru": "Sıçrayıcı dizi (patellar tendinopati) riskini azaltmak için ne önemlidir?", "secenekler": ["Antrenman hacmini ani artırmak", "Doğru iniş tekniği ve eksantrik kuvvet çalışması", "Sadece dinlenmek", "Daha çok sıçramak"], "cevap": 1, "konu": "sakatlik"}
+{"soru": "Blokta 'penetrasyon' ne demektir?", "secenekler": ["Elleri fileye paralel tutmak", "Bilekleri kırıp elleri karşı sahaya uzatmak", "Fileye dokunmak", "Sıçramadan blok yapmak"], "cevap": 1, "konu": "teknik"}
+{"soru": "Bir voleybol topunun çevresi yaklaşık kaç cm'dir?", "secenekler": ["58-60 cm", "65-67 cm", "70-72 cm", "75-78 cm"], "cevap": 1, "konu": "genel"}
+{"soru": "İyi bir servis karşılamada kollar topa ne zaman birleştirilmelidir?", "secenekler": ["En baştan birleşik tutulur", "Top gelirken birleştirilir", "Vuruştan sonra", "Hiç birleştirilmez"], "cevap": 1, "konu": "teknik"}
+{"soru": "Servis karşılamada float servise karşı oyuncu nasıl durmalı?", "secenekler": ["Dip çizgide", "Biraz öne, hazır konumda", "Filede", "Oturarak"], "cevap": 1, "konu": "taktik"}
+{"soru": "Maç öncesi ısınmada hangisi tercih edilmelidir?", "secenekler": ["Uzun statik esneme", "Dinamik esneme ve hareketlilik", "Ağır kuvvet çalışması", "Hiç ısınmamak"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Pasör dış oyuncuya pası fileden ne kadar açık vermelidir?", "secenekler": ["Fileye yapışık", "Yaklaşık 30-50 cm açık", "2 metre açık", "Saha ortasına"], "cevap": 1, "konu": "taktik"}
+{"soru": "Antrenmanda geri bildirim nasıl verilmelidir?", "secenekler": ["Sadece hataları sayarak", "Somut ve uygulanabilir, tek bir odakla", "Hiç konuşmadan", "Bağırarak"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Pasör çaprazı (opposite) hangi oyuncudur?", "secenekler": ["Liberonun yerine giren", "Pasörün karşısında dizilen, sağ kanattan hücum eden", "Orta oyuncu", "İkinci libero"], "cevap": 1, "konu": "taktik"}
+{"soru": "Voleybolda 4 numara bölgesi sahanın neresidir?", "secenekler": ["Ön sağ", "Ön sol", "Arka orta", "Arka sağ"], "cevap": 1, "konu": "pozisyon"}
+{"soru": "Ayak bileği burkulması voleybolda en çok nerede olur?", "secenekler": ["Servis atarken", "File altında rakip/arkadaş ayağına basınca", "Otururken", "Isınmada"], "cevap": 1, "konu": "sakatlik"}
+{"soru": "Libero hangi bölgede oynar?", "secenekler": ["Sadece ön bölge", "Sadece arka bölge", "Tüm saha", "Sadece 1 numara"], "cevap": 1, "konu": "kural"}
+{"soru": "Servisi karşılarken libero topu ön bölgeden parmak pasla çıkarırsa ne olur?", "secenekler": ["Her zaman serbest", "O topa file üstü seviyesinde hücum edilemez", "Sayı olur", "Servis tekrarlanır"], "cevap": 1, "konu": "kural"}
+{"soru": "Smaçta topa vuruş anında kol nasıl olmalıdır?", "secenekler": ["Dirsek bükülü", "Tam uzatılmış ve yüksekte", "Vücuda yakın", "Aşağıda"], "cevap": 1, "konu": "teknik"}
+{"soru": "Türkiye Erkek Millî Voleybol Takımı'nın lakabı nedir?", "secenekler": ["Filenin Sultanları", "Filenin Efeleri", "Millî Filenin Aslanları", "Anadolu Kartalları"], "cevap": 1, "konu": "genel"}
+{"soru": "Orta oyuncu blokta hangi rolü üstlenir?", "secenekler": ["Sadece seyretmek", "Blokun merkezinde olup yanlara kaymak", "Servis atmak", "Pas vermek"], "cevap": 1, "konu": "taktik"}
+{"soru": "Genç yaş grubunda erken uzmanlaşma (tek pozisyonda oynatma) neden sakıncalıdır?", "secenekler": ["Sıkıcı olduğu için", "Dengeli gelişimi engellediği ve sakatlık riskini artırdığı için", "Kural yasakladığı için", "Sakıncası yoktur"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Parmak pasta topa kaç parmakla ve nasıl dokunulur?", "secenekler": ["İki avuçla kavrayarak", "On parmak uçlarıyla, alnın üstünde", "Yumrukla", "Tek elle"], "cevap": 1, "konu": "teknik"}
+{"soru": "Oturarak voleybolda hücum/servis anında hangi kural vardır?", "secenekler": ["Ayakta olunur", "Kalçanın yerle teması korunur", "Fark etmez", "Sadece diz yerde"], "cevap": 1, "konu": "genel"}
+{"soru": "Sıçrama yüksekliğini artırmak için hangi antrenman türü en uygundur?", "secenekler": ["Sadece uzun mesafe koşusu", "Pliometrik ve kuvvet çalışması", "Sadece esneme", "Yüzme"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Maç günü ana öğün ne zaman yenmelidir?", "secenekler": ["Maçtan hemen önce", "Maçtan 3-4 saat önce", "Maç sırasında", "Yenmemeli"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Omuz sağlığı için hücumcularda hangi çalışma önemlidir?", "secenekler": ["Sadece smaç", "Rotator manşet ve skapula stabilizasyonu", "Sadece koşu", "Hiçbiri"], "cevap": 1, "konu": "sakatlik"}
+{"soru": "Bir voleybol seti kaç sayıya oynanır ve kazanmak için en az kaç sayı fark gerekir?", "secenekler": ["21 sayı, 1 fark", "25 sayı, 2 fark", "25 sayı, 1 fark", "15 sayı, 2 fark"], "cevap": 1, "konu": "kural"}
+{"soru": "5-1 rotasyon sisteminde takımda kaç pasör vardır?", "secenekler": ["1", "2", "3", "Pasör yoktur"], "cevap": 0, "konu": "taktik"}
+{"soru": "Servis karşılamada oyuncular nasıl konumlanmalıdır?", "secenekler": ["Sabit noktalarda durarak", "Topun düşeceği tahmini noktaya göre hareket ederek", "Hepsi filede", "Rastgele"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Oyun sırasında topu oynama hareketi yaparken fileye dokunmak faul müdür?", "secenekler": ["Hayır, serbesttir", "Evet, o eylemde fileye temas fauldür", "Sadece blokta faul", "Sadece serviste faul"], "cevap": 1, "konu": "kural"}
+{"soru": "Voleybolda en sık görülen sakatlıklardan biri hangisidir?", "secenekler": ["Ayak bileği burkulması", "Kaburga kırığı", "Beyin sarsıntısı", "Diz çıkığı"], "cevap": 0, "konu": "sakatlik"}
+{"soru": "Kurtarışta (savunma) beklerken ağırlık nerede olmalıdır?", "secenekler": ["Topuklarda", "Ayak parmak uçlarında", "Tek ayakta", "Geride"], "cevap": 1, "konu": "teknik"}
+{"soru": "Float (titreşimli) servis ile jump servisin temel farkı nedir?", "secenekler": ["Float sıçrayarak atılır", "Float dönüşsüz ve sabit temaslı, jump sıçramalı ve güçlüdür", "İkisi aynıdır", "Jump servis dönüşsüzdür"], "cevap": 1, "konu": "teknik"}
+{"soru": "Arka bölge oyuncusu hücum vuruşunu nereden yaparsa kurallara uygundur?", "secenekler": ["Fileye istediği kadar yakınlaşarak", "3 metre çizgisinin gerisinden sıçrayarak", "Sadece file önünden", "Arka bölge oyuncusu hücum yapamaz"], "cevap": 1, "konu": "kural"}
+{"soru": "Smaç yaklaşımında kollar sıçrama anında ne yapar?", "secenekler": ["Yanda durur", "Geriye savrulup yukarı fırlatılır", "Belde tutulur", "Öne uzatılır"], "cevap": 1, "konu": "teknik"}
+{"soru": "Liberonun forması diğer oyunculara göre nasıldır?", "secenekler": ["Aynı renktedir", "Farklı (zıt) renktedir", "Numarasızdır", "Kaptan bandı taşır"], "cevap": 1, "konu": "kural"}
+{"soru": "Libero servis atabilir mi (FIVB genel kural)?", "secenekler": ["Her zaman", "Hayır (bazı ulusal liglerde tek rotasyonda izin var)", "Sadece son sette", "Sadece tie-break'te"], "cevap": 1, "konu": "kural"}
+{"soru": "Beşinci set (tie-break) kaç sayıya oynanır?", "secenekler": ["25", "21", "15", "11"], "cevap": 2, "konu": "kural"}
+{"soru": "Arka bölge oyuncusu blok yapabilir mi?", "secenekler": ["Evet, serbesttir", "Hayır, arka bölge oyuncusu blok yapamaz", "Sadece libero yapabilir", "Sadece 6 numara yapabilir"], "cevap": 1, "konu": "kural"}
+{"soru": "Sahada bir takımdan aynı anda kaç oyuncu bulunur?", "secenekler": ["5", "6", "7", "4"], "cevap": 1, "konu": "kural"}
+{"soru": "Isınma maç başlangıcından en fazla ne kadar önce bitmelidir?", "secenekler": ["1 saat", "30 dakika", "10 dakika", "Fark etmez"], "cevap": 2, "konu": "antrenman"}
+{"soru": "Jump float servisin amacı nedir?", "secenekler": ["Maksimum güç", "Öngörülemez, titreşimli ve dönüşsüz bir yörünge", "Yavaş top", "Yüksek top"], "cevap": 1, "konu": "teknik"}
+{"soru": "Uluslararası kurallarda bir sette takım başına oyuncu değişikliği hakkı kaçtır?", "secenekler": ["3", "6", "12", "Sınırsız"], "cevap": 1, "konu": "kural"}
+{"soru": "İyi bir smaç için pasın fileye uzaklığı ne olmalı?", "secenekler": ["Fileye yapışık", "30-50 cm açık", "2 metre açık", "Dip çizgide"], "cevap": 1, "konu": "teknik"}
+{"soru": "Rotasyon hangi yönde yapılır?", "secenekler": ["Saat yönünde", "Saat yönünün tersine", "Rastgele", "Antrenörün işaretine göre"], "cevap": 0, "konu": "kural"}
+{"soru": "Servis atılırken top file üstüne değip karşı sahaya geçerse ne olur?", "secenekler": ["Servis geçersizdir, sayı rakibe gider", "Servis tekrar edilir", "Oyun devam eder, geçerlidir", "Servis atan oyuncu değişir"], "cevap": 2, "konu": "kural"}
+{"soru": "Kadın millî takımı 2023'te hangi büyük turnuvada Avrupa şampiyonu oldu?", "secenekler": ["Dünya Şampiyonası", "Avrupa Şampiyonası (CEV)", "Olimpiyat", "Milletler Ligi"], "cevap": 1, "konu": "genel"}
+{"soru": "Orta oyuncunun (ortacı) temel görevleri nelerdir?", "secenekler": ["Sadece servis atmak", "Hızlı orta hücum ve blokun merkezinde olmak", "Sadece savunma", "Pas dağıtmak"], "cevap": 1, "konu": "taktik"}
+{"soru": "Yeni başlayan bir grupta hangi teknikler önce öğretilmelidir?", "secenekler": ["Jump servis ve blok", "Manşet ve parmak pas", "Slide hücumu", "Çift blok"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Küçük alan oyunları (2'ye 2, 3'e 3) altyapıda neden faydalıdır?", "secenekler": ["Sadece eğlence", "Her oyuncunun top temasını ve karar sayısını artırır", "Kural gereği", "Faydası yok"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Bir sette her takımın kaç mola hakkı vardır (FIVB)?", "secenekler": ["1", "2", "3", "Sınırsız"], "cevap": 1, "konu": "kural"}
+{"soru": "Rakip analiz ederken en öncelikli bakılacak şey nedir?", "secenekler": ["Formaların rengi", "Hücum dağılımı ve zayıf karşılama bölgesi", "Seyirci sayısı", "Salon"], "cevap": 1, "konu": "taktik"}
+{"soru": "Antrenman yükünü haftada en fazla ne kadar artırmak sakatlık riskini düşürür?", "secenekler": ["Yaklaşık %10", "%50", "%100", "Sınır yoktur"], "cevap": 0, "konu": "sakatlik"}
+{"soru": "6-2 sisteminin temel özelliği nedir?", "secenekler": ["Tek pasör", "İki pasör arka bölgeden pas verir, hep üç ön hücumcu bulunur", "Pasörsüz oyun", "İki libero"], "cevap": 1, "konu": "taktik"}
+{"soru": "Sağ elini kullanan bir smaçörün klasik dört adımlı yaklaşım ritmi nasıldır?", "secenekler": ["sağ-sol-sağ-sol, hepsi eşit", "sol-sağ-sol-sağ, son iki adım hızlı", "tek adım sıçrama", "yavaş dört adım"], "cevap": 1, "konu": "teknik"}
+{"soru": "Topun geçerli sayılması için file üzerinde nereden geçmesi gerekir?", "secenekler": ["Antenlerin arasından", "Antenlerin dışından", "Direklerin üstünden", "Fark etmez"], "cevap": 0, "konu": "kural"}
+{"soru": "Bir takım topu karşı sahaya göndermeden önce en fazla kaç kez oynayabilir (blok hariç)?", "secenekler": ["2", "3", "4", "Sınırsız"], "cevap": 1, "konu": "kural"}
+{"soru": "Blokta zamanlama nasıl olmalı?", "secenekler": ["Smaçörden önce sıçramak", "Smaçörün vuruşuna göre, hafif sonra sıçramak", "Hiç sıçramamak", "Top yere değince"], "cevap": 1, "konu": "teknik"}
+{"soru": "Voleybol hangi olimpiyatta ilk kez olimpik spor oldu?", "secenekler": ["1936 Berlin", "1964 Tokyo", "1992 Barselona", "2000 Sidney"], "cevap": 1, "konu": "genel"}
+{"soru": "Avrupa kıtasının voleybol yönetim organı hangisidir?", "secenekler": ["FIVB", "CEV", "UEFA", "AVC"], "cevap": 1, "konu": "genel"}
+{"soru": "Top oyuncunun elinde bir an durursa (tutma/taşıma) ne olur?", "secenekler": ["Geçerlidir", "Faul, sayı rakibe geçer", "Servis tekrarlanır", "Uyarı verilir"], "cevap": 1, "konu": "kural"}
+{"soru": "W dizilimi kaç oyuncuyla yapılan bir servis karşılama düzenidir?", "secenekler": ["3", "4", "5", "6"], "cevap": 2, "konu": "taktik"}
+{"soru": "Erkeklerde file yüksekliği kaç metredir?", "secenekler": ["2.24 m", "2.35 m", "2.43 m", "2.50 m"], "cevap": 2, "konu": "kural"}
+{"soru": "Manşet pasında dirsekler nasıl olmalıdır?", "secenekler": ["Bükülü", "Kilitli ve düz", "Serbest", "Yana açık"], "cevap": 1, "konu": "teknik"}
+{"soru": "Konsantrasyonu set ortasında düşen takıma antrenör molada ne vermeli?", "secenekler": ["Uzun taktik anlatımı", "Tek somut görev", "Sessizlik", "Azarlama"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Blokta dış eldeki parmaklar nereye çevrilmelidir?", "secenekler": ["Dışarı", "Sahanın içine", "Yukarı", "Fileye"], "cevap": 1, "konu": "teknik"}
+{"soru": "Manşet pasında top ideal olarak nereyle karşılanır?", "secenekler": ["Avuç içleriyle", "Parmak uçlarıyla", "Ön kolların iç düz yüzeyiyle", "Bileklerle"], "cevap": 2, "konu": "teknik"}
+{"soru": "Dört adımlı smaç yaklaşımında son iki adım nasıl olmalı?", "secenekler": ["Yavaş ve uzun", "Hızlı ve birleşik", "Durarak", "Geriye"], "cevap": 1, "konu": "teknik"}
+{"soru": "Plaj voleybolunda setler kaç sayıya oynanır (ilk iki set)?", "secenekler": ["25", "21", "15", "11"], "cevap": 1, "konu": "genel"}
+{"soru": "Pasör arka bölgedeyken 5-1 sisteminde takımın hücum gücü nasıldır?", "secenekler": ["En düşük", "Değişmez", "En yüksek (üç hücumcu koşabilir)", "Sadece iki hücumcu vardır"], "cevap": 2, "konu": "taktik"}
+{"soru": "Parmak pasta eller nerede hazırlanmalıdır?", "secenekler": ["Göğüs hizasında", "Alnın 15-20 cm üstünde", "Belde", "Başın arkasında"], "cevap": 1, "konu": "teknik"}
 {"soru": "Kadınlar en üst düzey voleybol ligi Türkiye'de hangi adla bilinir?", "secenekler": ["Efeler Ligi", "Sultanlar Ligi", "Süper Lig", "1. Lig"], "cevap": 1, "konu": "genel"}
+{"soru": "Bir takım servis hakkını kaybettiğinde ne olur (rally point)?", "secenekler": ["Hiçbir şey", "Rakip hem sayıyı hem servisi alır", "Sadece servis geçer", "Set biter"], "cevap": 1, "konu": "kural"}
+{"soru": "VakıfBank ve Eczacıbaşı hangi ligin köklü kulüpleridir?", "secenekler": ["Efeler Ligi", "Sultanlar Ligi", "1. Lig", "Bölgesel Lig"], "cevap": 1, "konu": "genel"}
+{"soru": "Bir oyuncu topa üst üste iki kez dokunabilir mi (blok hariç, normal oyunda)?", "secenekler": ["Evet, serbest", "Hayır, ardışık iki temas fauldür", "Sadece serviste", "Sadece savunmada"], "cevap": 1, "konu": "kural"}
+{"soru": "Servis, hakem düdüğünden sonra kaç saniye içinde atılmalıdır?", "secenekler": ["3", "5", "8", "10"], "cevap": 2, "konu": "kural"}
+{"soru": "4-2 sisteminin 5-1'e göre avantajı nedir?", "secenekler": ["Daha çok hücumcu", "Her rotasyonda ön bölgede pasör bulunması, sistemin basitliği", "Daha hızlı hücum", "Liberosuz oynanması"], "cevap": 1, "konu": "taktik"}
+{"soru": "Voleybolda 'ace' nedir?", "secenekler": ["Blok sayısı", "Doğrudan sayı getiren servis", "Smaç hatası", "Pas çeşidi"], "cevap": 1, "konu": "genel"}
+{"soru": "Yeni bir beslenme/ekipmanı ilk kez ne zaman denememelisin?", "secenekler": ["Antrenmanda", "Önemli maç gününde", "Fark etmez", "Tatilde"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Soğuma (cool-down) ne işe yarar?", "secenekler": ["Isınmayı bozar", "Toparlanmayı destekler ve kalp hızını kademeli düşürür", "Performansı düşürür", "Gereksizdir"], "cevap": 1, "konu": "antrenman"}
+{"soru": "Rotasyon (dizilim) hatası ne zaman değerlendirilir?", "secenekler": ["Servis vuruşu anındaki dizilime göre", "Ralinin ortasında", "Sadece sayı sonrası", "Antrenör molasında"], "cevap": 0, "konu": "kural"}
+{"soru": "Manşet pasta topun dönmesi neyi gösterir?", "secenekler": ["İyi teknik", "İki kolun teması senkron değil", "Güçlü vuruş", "Doğru açı"], "cevap": 1, "konu": "teknik"}
+{"soru": "Pliometrik çalışmada iniş tekniği neden önemlidir?", "secenekler": ["Daha yüksek sıçramak için", "Diz ve bilek sakatlığını önlemek için", "Hız için", "Estetik için"], "cevap": 1, "konu": "kondisyon"}
+{"soru": "Erkek millî takımına 2020'lerde gelen büyük başarı hangisidir?", "secenekler": ["Dünya Kupası şampiyonluğu", "Milletler Ligi'nde (VNL) ilk kez üst sıralara çıkması", "Olimpiyat altını", "Hiçbiri"], "cevap": 1, "konu": "genel"}
